@@ -2,10 +2,10 @@
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("Hello from LH_KL!");
+  Serial.println("Kumusta mula sa LH.KL!");
 }
 
 void loop() {
-  Serial.println("Looping...");
+  Serial.println("Lumilikaw...");
   delay(1000);
 }
