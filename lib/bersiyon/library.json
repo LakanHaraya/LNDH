@@ -1,9 +1,0 @@
-{
-  "name": "bersiyon",
-  "version": "0.1.0",
-  "author": "Lakan Haraya",
-  "license": "MIT",
-  "description": "Custom Arduino library for LNDH versioning system",
-  "frameworks": "arduino",
-  "platforms": "*"
-}

@@ -1,21 +1,17 @@
 #include <Arduino.h>
-#include <bersiyon.h>
+#include "bersiyon.h"
 
 void setup() {
   Serial.begin(115200);
+  delay(500);
 
-  Version v1 = Bersiyon::parse("LH.PS.01A.0.1.0.X");
-  Version v2 = Bersiyon::parse("LH.PS.01A.0.2.0.X");
-
-  Serial.println(Bersiyon::toString(v1));
-  Serial.println(Bersiyon::toString(v2));
-
-  Serial.println(Bersiyon::compareMessage(v1, v2));
-
-  // Example incomparable
-  Version v3 = Bersiyon::parse("LH.MK.01A.0.1.0.X");
-  Serial.println(Bersiyon::compareMessage(v1, v3));
+  Serial.println("=== Mga Bersiyon ng Yunit ng LNDH ===");
+  Serial.println("Pangunahing Sasakyan  : " LH_PS_VERSION);
+  Serial.println("Malayuang Kontroler   : " LH_MK_VERSION);
+  Serial.println("Takad Daungan         : " LH_TD_VERSION);
+  Serial.println("Kontrol sa Lupa       : " LH_KL_VERSION);
 }
 
-void loop() {}
-
+void loop() {
+  // wala pa
+}
