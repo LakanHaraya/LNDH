@@ -4,9 +4,8 @@
 
 void setup() {
   Serial.begin(BAUD_RATE);
-  Serial.println("\nKumusta mula sa LH.KL!\n");
-  Serial.println("Bersiyon: " + String(LH_KL_VERSION));
-  Serial.println();
+  delay(TIMEOUT_MS);
+  Serial.println("\nTatagsil: " + String(LH_KL_VERSION) +"\n");
 }
 
 void loop() {

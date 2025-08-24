@@ -10,10 +10,10 @@
 // Yugto = X (Eksperimental), B (Beta), L (Labas), ...
 
 // Pangunahing bersiyon ng bawat yunit
-#define LH_PS_VERSION "LH.PS.01A.0.1.0.X"
-#define LH_MK_VERSION "LH.MK.01A.0.1.0.X"
-#define LH_TD_VERSION "LH.TD.01A.0.1.0.X"
-#define LH_KL_VERSION "LH.KL.01A.0.1.0.X"
+#define LH_PS_VERSION "vLH.PS.01A.0.1.0.X"
+#define LH_MK_VERSION "vLH.MK.01A.0.1.0.X"
+#define LH_TD_VERSION "vLH.TD.01A.0.1.0.X"
+#define LH_KL_VERSION "vLH.KL.01A.0.1.0.X"
 
 // Deklarasyon ng mga funsiyon
 void printUnitVersions(Stream &out = Serial);

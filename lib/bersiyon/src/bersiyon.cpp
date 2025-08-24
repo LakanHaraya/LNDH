@@ -2,7 +2,7 @@
 #include "bersiyon.h"
 
 void printUnitVersions(Stream &out) {
-    out.println(F("======= Mga Bersiyon ng Yunit ng LNDH ======="));
+    out.println(F("======== Mga Bersiyon ng Yunit ng LNDH ========"));
     out.print(F("Pangunahing Sasakyan (PS)  : "));
     out.println(LH_PS_VERSION);
     out.print(F("Malayuang Kontroler  (MK)  : "));

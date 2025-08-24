@@ -2,24 +2,20 @@
 #include <bersiyon.h>
 #include <konstant.h>
 
-void testVersion() {
-    Serial.println("=== Bersiyon Test ===");
-    printUnitVersions();
-}
-
-void testKonstant() {
-    Serial.println("=== Konstant Test ===");
-    Serial.print("BAUD_RATE = ");
-    Serial.println(BAUD_RATE);
-}
-
 void setup() {
-    Serial.begin(115200);
-    delay(1000);
+    // 1. Simulan ang Sunurang Komunikasyon
+    Serial.begin(BAUD_RATE);
+    delay(TIMEOUT_MS);
 
-    Serial.println("=== Pagsubok LNDH ===");
-    testVersion();
-    testKonstant();
+    // 2. Italatag ang Impormasyon ng Tatagsil
+    Serial.println("\nMga Tatagsil:");
+    printUnitVersions();
+
+    // 3. Inisyalisasyon ng mga Estado
+
+    // 4. Simpleng tibok at pagsubok ng mga sensor at aktuweytor
+
+    // 5. Mensahe ng Pagtapos ng Panimula
 }
 
 void loop() {
