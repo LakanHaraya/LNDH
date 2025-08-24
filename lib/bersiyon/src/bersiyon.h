@@ -15,5 +15,5 @@
 #define LH_TD_VERSION "LH.TD.01A.0.1.0.X"
 #define LH_KL_VERSION "LH.KL.01A.0.1.0.X"
 
-// Deklarasyon ng mg funsiyon
+// Deklarasyon ng mga funsiyon
 void printUnitVersions(Stream &out = Serial);

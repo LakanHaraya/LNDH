@@ -1,11 +1,15 @@
 #include <Arduino.h>
+#include <bersiyon.h>
+#include <konstant.h>
 
 void setup() {
-  Serial.begin(115200);
-  Serial.println("Kumusta mula sa LH.TD!");
+  Serial.begin(BAUD_RATE);
+  Serial.println("\nKumusta mula sa LH.TD!\n");
+  Serial.println("Bersiyon: " + String(LH_TD_VERSION));
+  Serial.println();
 }
 
 void loop() {
   Serial.println("Lumilikaw...");
-  delay(1000);
+  delay(TIMEOUT_MS);
 }
