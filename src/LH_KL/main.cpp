@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <bersiyon.h>
 #include <konstant.h>
 
 void setup() {

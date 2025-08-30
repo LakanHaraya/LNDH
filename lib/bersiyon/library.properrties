@@ -1,9 +1,0 @@
-name=bersiyon
-version=0.1.0
-author=Lakan Haraya Dima
-maintainer=Lakan Haraya Dima <lakanharaya@gmail.com>
-sentence=Custom library for LNDH project versioning.
-paragraph=Provides version tracking and printing functions for each unit of the LNDH project.
-category=Other
-url=https://github.com/LakanHaraya/LNDH
-architectures=*
