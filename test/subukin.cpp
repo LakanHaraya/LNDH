@@ -1,5 +1,8 @@
 #include <Arduino.h>
 #include <konstant.h>
+#include <Tibok.h>
+
+Tibok tibok(13, Tibok::EMERGENCY);
 
 void setup() {
     // 1. Simulan ang Sunurang Komunikasyon
@@ -8,13 +11,6 @@ void setup() {
 
     // 2. Italatag ang Impormasyon ng Tatagsil
     printVersion("PS");
-    printVersion("MK");
-    printVersion("TD");
-    printVersion("KL");
-    printVersion("ALL");
-    printVersion();
-    printVersion("");
-    printVersion("MEOW");
 
     // 3. Inisyalisasyon ng mga Estado
 
@@ -25,4 +21,5 @@ void setup() {
 
 void loop() {
     // optional, kung may gusto kang ulitin
+    tibok.update();
 }

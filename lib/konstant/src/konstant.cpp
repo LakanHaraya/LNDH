@@ -1,12 +1,13 @@
 #include <Arduino.h>
 #include "konstant.h"
 
-// Listahan ng lahat ng units
+// Listahan ng lahat ng mga yunit
 const UnitVersion unitVersions[] = {
     { "PS", "Pangunahing Sasakyan", LH_PS_VERSION },
     { "MK", "Malayuang Kontrol", LH_MK_VERSION },
     { "TD", "Takad Daungan", LH_TD_VERSION },
     { "KL", "Kontrol sa Lupa", LH_KL_VERSION }
+    // Magdagdag lang ng bagong entri dito
 };
 const size_t unitCount = sizeof(unitVersions) / sizeof(unitVersions[0]);
 

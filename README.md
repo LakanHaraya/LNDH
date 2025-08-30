@@ -24,8 +24,8 @@ LNDH/
 |— .vscode/         # Mga kagamitang pantulong sa VSCode
 |— include/         # Mga pangkalahatang header files
 |— lib/             # Mga sariling likhang aklatan (libraries)
-|   |— bersiyon/        # Sistema ng pamamahala ng bersiyon
 |   |— konstant/        # Mga pangkalahatang konstant
+|   |— tibok/           # Mga panghudyat sa sistema
 |— src/             # Kodigo mulaan ng bawat yunit
 |   |— LH_PS/           # Pangunahing Sasakyan  (Main Drone)
 |   |— LH_MK/           # Malayuang Kontroler   (Remote Controller)
@@ -63,7 +63,7 @@ LNDH/
 
 ## 📚 Mga Pasadyang Aklatan
 
-* `bersiyon/` – Nagtatala at nagpapakita ng bersiyon ng bawat yunit.
+* `tibok/` - Naglalaman ng mga pangkontrol sa indikador para magpakita ng istatus ng sistema.
 
 * `konstant/` – Naglalaman ng mga pangkalahatang konstant (halimbawa: BAUD_RATE = 115200).
 
