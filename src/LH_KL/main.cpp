@@ -5,7 +5,7 @@
 void setup() {
   Serial.begin(BAUD_RATE);
   delay(TIMEOUT_MS);
-  Serial.println("\nTatagsil: " + String(LH_KL_VERSION) +"\n");
+  printVersion("KL");
 }
 
 void loop() {

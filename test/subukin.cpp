@@ -8,8 +8,10 @@ void setup() {
     delay(TIMEOUT_MS);
 
     // 2. Italatag ang Impormasyon ng Tatagsil
-    Serial.println("\nMga Tatagsil:");
-    printUnitVersions();
+    printVersion("PS");
+    printVersion("MK");
+    printVersion("TD");
+    printVersion("KL");
 
     // 3. Inisyalisasyon ng mga Estado
 
