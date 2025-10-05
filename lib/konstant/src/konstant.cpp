@@ -11,6 +11,12 @@ const UnitVersion unitVersions[] = {
 };
 const size_t unitCount = sizeof(unitVersions) / sizeof(unitVersions[0]);
 
+/**
+ * @brief Maglimbag ng bersiyon ng yunit (string key ang gamit)
+ *
+ * @param unit Ang key ng yunit, alinman sa `"PS"`, `"MK"`, `"TD"`, `"KL"` (default sa `"ALL"`)
+ * @param out Ang stream na paglalagyan ng output (default sa `Serial`)
+ */
 void printVersion(const char* unit, Stream &out) {
     if (strcmp(unit, "ALL") == 0) {
         out.println(F("Mga Tatagsil:"));

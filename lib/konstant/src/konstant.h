@@ -58,5 +58,4 @@ struct UnitVersion {
 extern const UnitVersion unitVersions[];
 extern const size_t unitCount;
 
-// Maglimbag ng bersiyon ng yunit (string key ang gamit)
 void printVersion(const char* unit = "ALL", Stream &out = Serial);
