@@ -21,17 +21,23 @@
 
 // Control Packet Structure (ipapadala papuntang PS o TD)
 struct ControlPacket{
-  uint8_t swivel;
-  uint8_t throttle;
-  uint8_t yaw;
-  uint8_t pitch;
-  uint8_t roll;
   uint8_t flags;
+  uint8_t thrust;
+  uint8_t swiveller;
+  uint8_t rudder;
+  uint8_t elevator;
+  uint8_t ballonet;
   // Magdagdag ng iba pang control fields dito
 };
 
 // Telemetry Packet Structure (ipapadala papuntang KL)
 struct TelemetryPacket{
+  uint8_t flags;
+  uint8_t thrust;
+  uint8_t swiveller;
+  uint8_t rudder;
+  uint8_t elevator;
+  uint8_t ballonet;
   float batteryVoltage;
   float temperature;
   unsigned long uptime;
@@ -96,13 +102,13 @@ String timeStamp() {
 // ------------------------------------------
 
 void readInputs() {
-  // Simulated na pagbasa ng joystik/pindutan
-  ctrl.swivel = random(0, 255);   // 0 to 90 degrees
-  ctrl.throttle = random(0, 255); // 0 to max power
-  ctrl.yaw = random(0, 255);      // 0 to 45 degrees
-  ctrl.pitch = random(0, 255);    // 0 to 45 degrees
-  ctrl.roll = random(0, 255);     // 0 to 45 degrees
-  ctrl.flags = 0x00;              // kunwaring sagisag
+  // Simulated na pagbasa ng kontrolstik/pindutan
+  ctrl.flags = 0x00;                // kunwaring sagisag
+  ctrl.thrust = random(0, 255);     // urong-sulong
+  ctrl.swiveller = random(0, 255);  // higa-tayo
+  ctrl.rudder = random(0, 255);     // kaliwa-kanan
+  ctrl.elevator = random(0, 255);   // baba-taas
+  ctrl.ballonet = random(0, 255);   // impis-pintog
 }
 
 // ------------------------------------------
@@ -111,12 +117,13 @@ void readInputs() {
 
 void sendControlToPS() {
   Serial.print(timeStamp());
-  Serial.print(" [MK→PS] Pakete ng Kontrol: swi=");
-  Serial.print(ctrl.swivel); Serial.print(", thr=");
-  Serial.print(ctrl.throttle); Serial.print(", yaw=");
-  Serial.print(ctrl.yaw); Serial.print(", pit=");
-  Serial.print(ctrl.pitch); Serial.print(", rol=");
-  Serial.println(ctrl.roll);
+  Serial.print(" [MK→PS] Pakete ng Kontrol: flg=");
+  Serial.print(ctrl.flags); Serial.print(", thr=");
+  Serial.print(ctrl.thrust); Serial.print(", swi=");
+  Serial.print(ctrl.swiveller); Serial.print(", rud=");
+  Serial.print(ctrl.rudder); Serial.print(", ele=");
+  Serial.print(ctrl.elevator); Serial.print(", bal=");
+  Serial.println(ctrl.ballonet);
 }
 
 void sendTelemetryToKL() {
@@ -126,14 +133,15 @@ void sendTelemetryToKL() {
   telem.signalStrength = random(80, 100);
 
   Serial.print(timeStamp());
-  Serial.print(" [MK→KL] Pakete ng Telemetriya: swi=");
-  Serial.print(ctrl.swivel); Serial.print(", thr=");
-  Serial.print(ctrl.throttle); Serial.print(", yaw=");
-  Serial.print(ctrl.yaw); Serial.print(", pit=");
-  Serial.print(ctrl.pitch); Serial.print(", rol=");
-  Serial.print(ctrl.roll); Serial.print(", ");
-  Serial.print(telem.batteryVoltage); Serial.print("V, ");
-  Serial.print(telem.temperature); Serial.print("°C, uptime=");
+  Serial.print(" [MK→KL] Pakete ng Telemetriya: flg=");
+  Serial.print(ctrl.flags); Serial.print(", thr=");
+  Serial.print(ctrl.thrust); Serial.print(", swi=");
+  Serial.print(ctrl.swiveller); Serial.print(", rud=");
+  Serial.print(ctrl.rudder); Serial.print(", ele=");
+  Serial.print(ctrl.elevator); Serial.print(", bal=");
+  Serial.print(ctrl.ballonet); Serial.print(", bat=");
+  Serial.print(telem.batteryVoltage); Serial.print("V, tmp=");
+  Serial.print(telem.temperature); Serial.print("°C, upt=");
   Serial.print(telem.uptime); Serial.println("s");
 }
 
