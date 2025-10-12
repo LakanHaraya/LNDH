@@ -1,11 +1,24 @@
 ## *mLNDH-0010*
 
 # 📦 MK Espesipikasyon ng Pakete ng Kontrol
-**LNDH Malayuang Kontroler (MK)**  
-**Bersiyon:** 0.1.0 (Prototipo)  
-**May-akda:** Lakan Haraya Dima  
-**MCU:** Arduino Nano ESP32  
+*(Malayuang Kontroler → Pangunahing Sasakyan / Takad Daungan / Kontrol sa Lupa)*
 
+---
+---
+---
+- **May-akda:** L. H. Dima  
+- **Bersiyon:** 0.1 — *Paunang Balangkas*  
+- **Petsa:** Oktubre 2025  
+- **Kodigo ng Dokumento:** `mLNDH-0010`  
+- **Pag-uuri:** Panloob – Para sa Unang Yugto ng Pagpapaunlad  
+- **Kaugnay na mga Dokumento:**  
+  - `mLNDH-0001` – Pangkalahatang Arkitektura  
+  - `mLNDH-0020` – Mga Depinisyon ng Flag  
+
+Itinatakda ng dokumentong ito ang **estruktura, layunin, at siklo ng pagpapadala** ng *Control Packet* mula sa **MK (Malayuang Kontroler)** patungo sa mga yunit ng **PS**, **TD**, at **KL**. Layunin nitong magbigay ng pamantayan sa datos na ipinadadala sa pagitan ng mga bahagi ng sistema upang matiyak ang pagkakatugma ng firmware, komunikasyon, at debugging.
+
+---
+---
 ---
 
 ## 1. Panimula
@@ -158,7 +171,7 @@ Halimbawa sa `MK_PS_Command`:
 
 ---
 
-### 2. 8 Integridad ng Datos ng Pakete ng Kontrol
+### 2.8 Integridad ng Datos ng Pakete ng Kontrol
 <!--
 *Tandaan:*  
 Kung sa hinaharap ay ipatutupad ang iisang CRC scheme sa lahat ng yunit ng LNDH System (MK, PS, TD, KL, at iba pa), maaaring ilipat ang seksiyong ito sa hiwalay na dokumento gaya ng `mLNDH-00XX: Data Integrity and CRC Specification` para sa sentralisadong pamantayan.
@@ -203,67 +216,79 @@ Ito ay inirerekomendang panatilihin sa kasalukuyang arkitektura ng `ControlPacke
 
 ---
 
----
- 
-## 5. Iba Pang Mga Flag Bits
+## 3. Ang Kahulugan ng mga Flag
+<!-- Tandaan
+Huwag kalimutan isapanahon ang mga kaugnay na dokumento ng malapamantayan.
+-->
 
-<!-- 
-``` cpp
-// Halimbawa ng bitmask ng flags
-#define FLAG_SAFETY_ARMED   0x01  // nakabitbit o aktibo ang propulsiyon
-#define FLAG_OVERRIDE_MODE  0x02  // nasa manual override mode
-#define FLAG_AUTOPILOT      0x04  // autopilot na aktibo
-#define FLAG_FAILSAFE       0x08  // nasa failsafe state
-```
- -->
+Ang kahulugan ng mga *command flag* (tulad ng `PScmd_flags` at `TDcmd_flags`) ay hindi tinatalakay sa dokumentong ito. Ang mga ito ay itinatakda at ipinaliliwanag nang buo sa dokumentong `mLNDH-00XX`: Mga Depinisyon ng MK Flag (o katumbas kapag natukoy na ang opisyal na kodigo).
 
 ---
 
-## 6. Siklo ng Pagpapadala
+## 4. Siklo ng Pagpapadala
+
+Itinatakda sa seksiyong ito ang tipikal na dalas ng pagpapadala ng bawat uri ng pakete, bilang gabay sa disenyo ng tatagsil ng MK.
 
 | Aytem | Agwat | Funsiyon |
 | --- | --- | --- |
-| Pakete ng Kontrol | 1000ms (prototipo) | `sendControlToPS()` |
-| Midyum ng Transmisyon | ESP-NOW (prototipo: Serial print) | Isang-tunguhan MK → PS |
+| Pakete ng Kontrol (MK → PS) | 20–50 ms (operasyon) <br> 1000 ms (prototipo) | `sendControlToPS()` |
+| Pakete ng Kontrol (MK → TD) | 100–200 ms | `sendControlToTD()` |
+| Pakete ng Katayuan (MK → KL) | 500–1000 ms | `sendStatusToKL()` |
+| Midyum ng Transmisyon | Wireless link *(hal. ESP-NOW, LoRa, o Wi-Fi)* | Isang-tunguhan na brodkast (*one-way broadcast*) |
 
-Sa aktuwal na deployment, ang agwat ay magiging adaptibo (hal. 20–50 ms para sa tugon ng kontrolstik).
+> **Tala:**
+> Sa prototipo, ginagamit pa lamang ang Serial print bilang emulasyon ng wireless link.
 
----
+Ang **MK** ay patuloy na nagpapadala ng mga *control packet* sa mga katugmang yunit nang walang *acknowledgement handshake*. Dahil dito, inaasahan na ang transmisyon ay **mabilis at magaan**, ngunit ang pagtukoy ng error (CRC-8) sa bawat pakete ang nagsisiguro sa integridad ng datos.
 
-## 7. Mga Susunod na Pagpapalawak
-
-* Pagsasama ng checksum o CRC byte
-* Compression ng data frame para sa mas mabilis na transmisyon
-* Pagdadagdag ng sequence number o timestamp
-* Dynamic packet sizing (para sa optional modules tulad ng lighting o camera gimbal)
+Sa aktuwal na deployment, ang agwat ng pagpapadala ay maaaring **adaptibo**, batay sa bilis ng pagbabago ng mga input ng piloto at sa kondisyon ng koneksiyon.
 
 ---
 
-## 8. Halimbawa ng Output (Prototype Log)
+## 5. Mga Susunod na Pagpapalawak
 
-``` sh
-[00:02:03.251] [MK→PS] Kontrol: thr=200, swi=140, rud=130, ele=125, bal=150, flags=0x01
-```
+Ang mga sumusunod na pagpapalawak ay itinuturing na bahagi ng mga susunod na yugto ng *MK Control Packet*:
+
+- **Pagpapaunlad ng CRC scheme**
+    - Pagsusuri sa paglipat mula CRC-8 patungong CRC-16 kung kinakailangan ng mas mahaba o mas kritikal na transmisyon.
+
+- **Compression ng Data Frame**
+    - Pagpapababa ng kabuoang haba ng pakete upang mapabilis ang pagpapadala sa mga mabagal na *wireless links*.
+
+- **Pagdaragdag ng Sequence Number o Timestamp**
+    - Para sa mas mahusay na pagkilala ng mga pakete sa pagtanggap, at potensiyal na *replay protection* sa hinaharap.
+
+- **Dynamic Packet Sizing**
+    - Pagbibigay-daan sa mga opsiyonal na *modules* gaya ng ilaw (lighting), *camera gimbal*, o telemetry extensions.
+
+- **Encryption at Authentication (Opsiyonal)**
+    - Pagsusuri sa paggamit ng magaan na *encryption layer* para sa seguridad sa mga wireless channel.
+
+Ang mga pagpapalawak na ito ay isasama sa mga hiwalay na pamantayang dokumento (`mLNDH-XXXX` series) kapag natukoy na ang kani-kanilang disenyo.
 
 ---
 
-## 9. Kaugnay na Files
+## 6. Sanggunian at mga Kaugnay na Dokumento
 
-| File           | Deskripsyon                                         |
-| -------------- | --------------------------------------------------- |
-| `main.cpp`     | Pangunahing loop at scheduler                       |
+Ang mga sumusunod na dokumento ay nagbibigay ng karagdagang detalye o kaugnay na kahulugan sa mga bahagi ng sistemang MK:
 
-<!--
-| `konstant.h`   | Mga makro at sistematikong parameter                |
-| `controller.h` | Basahin at i-map ang mga input ng joystick/pindutan |
-| `telemetry.h`  | Para sa paglipat ng Control at Telemetry packets    |
-| `display.h`    | UI feedback sa OLED/TFT                             |
+| Kodigo | Pamagat | Paglalarawan |
+|:--|:--|:--|
+| `mLNDH-0010` | *MK Espesipikasyon ng Pakete ng Kontrol* | (Kasalukuyang dokumento) — inilalarawan ang estruktura at transmisyon ng mga pakete ng kontrol mula sa MK patungo sa PS, TD, at KL. |
+| `mLNDH-00XX` | *Mga Depinisyon ng MK Flag at Paraan ng Kontrol* | Itinatakda ang kahulugan at operasyon ng `PScmd_flags` at `TDcmd_flags`. |
+<!-- 
+| `mLNDH-00XX` | *Wireless Link Protocol* | Naglalarawan ng pisikal at lohikong antas ng komunikasyon sa pagitan ng MK at mga tumatanggap (Serial, RF, o Wi-Fi-based). |
+| `mLNDH-00XX` | *Telemetry and Diagnostic Format* | Itinatakda ang balangkas ng pag-uulat mula sa KL pabalik sa MK. |
 -->
 
+> **Tala:**  
+> Ang bawat dokumento sa serye ng `mLNDH-XXXX` ay maaaring baguhin o palawakin alinsunod sa pag-unlad ng materyil (*hardware*) at tatagsil (*firmware*) ng MK.
+
+---
 ---
 
-### Kasaysayan ng Dokumento
+### *Kasaysayan ng Dokumento*
 
 | Bersiyon | Petsa      | Pagbabago |
 | ------- | ---------- | ------- |
-| 0.1     | 2025-10-11 | Unang bersiyon ng ineeksperimentong pakete ng kontrol |
+| 0.1     | 2025-10-12 | Unang bersiyon ng ineeksperimentong pakete ng kontrol |

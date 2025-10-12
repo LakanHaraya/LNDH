@@ -2,4 +2,4 @@
 
 | Kodigo | Pangalan | Nilalaman |
 | --- | --- | --- |
-| 0010 | MK Espesipikasyon ng Pakete ng Kontrol *(MK Control Packet Specification)* | Tumutukoy sa mga utos ng piloto gamit ang malayuang kontroler para sa galaw, direksiyon, at boyansi ng lundayhangin. |
+| `mLNDH-0010` | MK Espesipikasyon ng Pakete ng Kontrol *(MK Control Packet Specification)* | Itinatakda ng dokumentong ito ang estruktura, layunin, at siklo ng pagpapadala ng Control Packet mula sa MK (Malayuang Kontroler) patungo sa mga yunit ng PS, TD, at KL. Layunin nitong magbigay ng pamantayan sa datos na ipinadadala sa pagitan ng mga bahagi ng sistema upang matiyak ang pagkakatugma ng firmware, komunikasyon, at debugging. |
