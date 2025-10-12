@@ -139,20 +139,89 @@ String Time.getLastSyncISO();
 
 ## 8. Fallback Logic (Pseudo-Flow)
 
+### 8.1 Layunin
+
+Ang seksiyong ito ay naglalarawan kung paano **dynamic na pinipili at pinapalitan** ng system ang active time source batay sa:
+
+- **Availability** ng hardware o network
+- **Freshness** ng oras (last sync)
+- **Precision / accuracy grade** ng source
+
+Layunin nito na **panatilihin ang pinakatumpak na timestamp sa lahat ng yunit**, kahit may temporary offline, hardware failure, o network loss.
+
+### 8.2 Mga Prinsipyo ng Fallback
+
+1. **Tiered hierarchy:**
+- Ang mga source ay may pre-defined priority (Tier 1 → Tier 4).
+- Mas mataas na tier ay preferred kung available at valid.
+
+2. **Automatic detection:**
+- Ang module ay regular na tinitingnan kung available ang mas mataas na tier (e.g., NTP online, GPS fix, RTC readable).
+- Kapag bumalik ang mas mataas na source, awtomatikong magre-resync.
+
+3. **Fallback threshold / timeout:**
+- Bawat source ay may validity window (e.g., NTP sync expired after 1 hour).
+- Kung lumampas ang threshold, magfa-fallback sa susunod na tier.
+
+4. **Non-blocking operation:**
+- Fallback at resync ay hindi pipigilan ang main loop o logging.
+
+### 8.3 Arbitartaion Criteria
+
+| Criterion | Deskripsyon | Halimbawa / Pananda |
+| --- | --- | --- |
+| **Source Availability**  | Ang source ay physically or logically accessible | GPS module connected + fix acquired |
+| **Sync Freshness** | Oras mula huling successful sync | NTP last sync < 1 hour → valid |
+| **Precision / Accuracy** | Estimated drift o ppm | GPS ±1 µs, RTC ±2 ppm, millis() ±5 ms/s |
+| **Stability** | Patuloy na nagbibigay ng consistent time | Temporary GPS signal loss → fallback only if multiple seconds missing |
+
+> Arbitration logic = **weighted evaluation** sa mga criterion: mas mataas ang priority sa mas tumpak at available na source.
+
+### 8.4 Pseudo-Flow ng Fallback Logic
+
 ``` txt
-flowchart 
-    A[Start] --> B{May NTP?}
-    B -->|Oo| C[Use NTP Time]
-    B -->|Hindi| D{May GPS Fix?}
-    D -->|Oo| E[Use GPS Time]
-    D -->|Hindi| F{May RTC?}
-    F -->|Oo| G[Use RTC Time]
-    F -->|Hindi| H[Use millis()]
-    G --> I[Log fallback status]
+flowchart TD
+    A[Start Timestamp Module] --> B{Tier 1 NTP available?}
+    B -->|Yes & Fresh| C[Use NTP Time]
+    B -->|No / Expired| D{Tier 2 GPS available?}
+    D -->|Yes & Valid| E[Use GPS Time]
+    D -->|No| F{Tier 3 RTC available?}
+    F -->|Yes| G[Use RTC Time]
+    F -->|No| H[Use millis() / Internal Clock]
+    C --> I[Log Active Source]
     E --> I
-    C --> I
+    G --> I
     H --> I
 ```
+
+### 8.5 Update & Sync Intervals
+
+| Source | Sync Interval | Validity Window |
+| --- | --- | --- |
+| NTP | 1 hr default (configurable) | 1 hr |
+| GPS | Every fix (1 Hz typical) | 5 sec drift tolerance |
+| RTC | Read on boot + periodic | ±5 ppm |
+| millis() | Continuous | Only offset-based, resets on power cycle |
+
+> Tandaan:
+>
+> - Ang `SyncManager` ay nagtatakda ng periodic checks at automatic resync base sa interval at validity window.
+>
+> - Sa simulation mode, puwede ring i-fake ang sync event para i-test ang logic.
+
+### 8.7 Implementation Notes
+
+1. **Timestamp validity flag:**
+- `isSynced()` ay true lamang kung current source ay valid.
+
+2. **Fallback counters:**
+- Bilang kung ilang beses na nag-fallback → diagnostic metric.
+
+3. **Soft resync:**
+- Kapag bumalik ang mas mataas na tier, *smooth adjustment* (offset correction) para hindi abrupt ang jump sa logs.
+
+4. **Simulation Mode:**
+- Sa Arduino Nano ESP32, puwede i-emulate ang fallback sa isang board lang gamit `millis()` at fake GPS/NTP events.
 
 --- 
 

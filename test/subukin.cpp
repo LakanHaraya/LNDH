@@ -1,153 +1,153 @@
-/* ======================================================
- *  MK Main Control Program (Simulation Build)
+/* ============================================================
+ *  LNDH Timestamp System - NTP Mode (with Internal Fallback)
  *  Device: Arduino Nano ESP32
- *  Version: 0.2 (with ControlPacket simulation)
+ *  Version: 0.4 (NTP + Internal)
  *  Author: L. H. Dima
- *  Reference: mLNDH-0010 (Control Packet Specification)
- * ======================================================
- */
+ *  Description:
+ *    - Connects to WiFi and syncs with NTP server.
+ *    - Falls back to internal millis() if no WiFi/NTP.
+ *    - Displays ISO 8601 timestamps with +8:00 timezone.
+ * ============================================================ */
 
 #include <Arduino.h>
-#include <string.h>
+#include <WiFi.h>
+#include <WiFiUdp.h>
+#include <NTPClient.h>
 
-// ======================================================
-// 🕒 Utility: ISO Timestamp for Serial prints
-// ======================================================
-String timeStamp() {
-  unsigned long ms = millis();
-  unsigned long s = ms / 1000;
-  unsigned long m = s / 60;
-  unsigned long h = m / 60;
-  char buf[32];
-  sprintf(buf, "[%02lu:%02lu:%02lu.%03lu]", h % 24, m % 60, s % 60, ms % 1000);
-  return String(buf);
-}
+/* ------------------------------------------------------------
+ * CONFIGURATION
+ * ------------------------------------------------------------ */
 
-// ======================================================
-// ⚙️ Data Structures (Mock Control values)
-// ======================================================
-struct ControlData {
-  uint8_t throttle;
-  uint8_t swiveller;
-  uint8_t rudder;
-  uint8_t elevator;
-  uint8_t ballonet;
-  uint8_t mode;
+const char* WIFI_SSID     = "Your_WiFi_SSID";
+const char* WIFI_PASSWORD = "Your_WiFi_Password";
+
+const long TIMEZONE_OFFSET_SEC = 8 * 3600;  // +8 hours offset
+const long NTP_UPDATE_INTERVAL = 3600000;   // update every 1 hour (ms)
+
+/* ------------------------------------------------------------
+ * ENUMS & STRUCTS
+ * ------------------------------------------------------------ */
+
+enum TimeSourceCode : uint8_t {
+  SRC_NTP = 0b0100,  // NTP Server
+  SRC_RTC = 0b1010,  // RTC Module (for future)
+  SRC_INT = 0b1101   // Internal millis()
 };
 
-ControlData ctrl;  // global instance
+struct TimeStatus {
+  TimeSourceCode timeSource;
+  unsigned long syncAge;
+  bool validTime;
+  String isoString;
+};
 
-// ======================================================
-// 🔢 CRC8 Computation (Polynomial 0x07)
-// ======================================================
-uint8_t computeCRC8(const uint8_t *data, size_t length) {
-  uint8_t crc = 0x00;
-  for (size_t i = 0; i < length; i++) {
-    crc ^= data[i];
-    for (uint8_t j = 0; j < 8; j++) {
-      if (crc & 0x80)
-        crc = (crc << 1) ^ 0x07;
-      else
-        crc <<= 1;
-    }
+/* ------------------------------------------------------------
+ * OBJECTS
+ * ------------------------------------------------------------ */
+
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, "pool.ntp.org", TIMEZONE_OFFSET_SEC, NTP_UPDATE_INTERVAL);
+
+TimeStatus currentTime;
+bool wifiConnected = false;
+
+/* ------------------------------------------------------------
+ * UTILITIES
+ * ------------------------------------------------------------ */
+
+String getSourceTag(TimeSourceCode src) {
+  switch (src) {
+    case SRC_NTP: return "S1";
+    case SRC_RTC: return "S3";
+    case SRC_INT: return "S4";
+    default: return "S?";
   }
-  return crc;
 }
 
-// ======================================================
-// 🧮 Mock Input Generator
-// ======================================================
-void readInputs() {
-  // Simulate changing values
-  ctrl.mode     = random(0, 4);
-  ctrl.throttle = random(0, 255);
-  ctrl.swiveller = random(0, 255);
-  ctrl.rudder   = random(0, 255);
-  ctrl.elevator = random(0, 255);
-  ctrl.ballonet = random(0, 255);  
-  // add more here if needed
+// ISO8601 formatter
+String formatISOtime(time_t rawTime) {
+  struct tm *timeInfo = gmtime(&rawTime);
+
+  char buffer[40];
+  snprintf(buffer, sizeof(buffer),
+           "%04d-%02d-%02dT%02d:%02d:%02d+8:00",
+           timeInfo->tm_year + 1900,
+           timeInfo->tm_mon + 1,
+           timeInfo->tm_mday,
+           timeInfo->tm_hour,
+           timeInfo->tm_min,
+           timeInfo->tm_sec);
+  return String(buffer);
 }
 
-// ======================================================
-// 📦 Control Packet Sender (Simulated Framing)
-// ======================================================
-void sendControlToPS() {
-  Serial.print(timeStamp());
-  Serial.println(" [KTRL] Nagpapadala ng mga kunwariang halaga ng kontrol:");
-  Serial.print("    flg: "); Serial.print(ctrl.mode);
-  Serial.print(" | thr: "); Serial.print(ctrl.throttle);
-  Serial.print(" | swi: "); Serial.print(ctrl.swiveller);
-  Serial.print(" | rud: "); Serial.print(ctrl.rudder);
-  Serial.print(" | ele: "); Serial.print(ctrl.elevator);
-  Serial.print(" | bal: "); Serial.println(ctrl.ballonet);
+// Fallback internal ISO formatter
+String formatInternalISO(unsigned long ms) {
+  unsigned long totalSeconds = ms / 1000;
+  unsigned long hours   = (totalSeconds / 3600) % 24;
+  unsigned long minutes = (totalSeconds / 60) % 60;
+  unsigned long seconds = totalSeconds % 60;
 
-  // --- ControlPacket Simulation ---
-  uint8_t startByte = 0x7E;
-  uint8_t endByte   = 0x7F;
-
-  // Example header (ID, Seq, Flags)
-  static uint8_t seq = 0;
-  uint8_t header[3] = {0x01, seq++, 0xAA}; 
-
-  // Payload (mock control data)
-  uint8_t payload[sizeof(ctrl)];
-  payload[0] = ctrl.mode;
-  payload[1] = ctrl.throttle;
-  payload[2] = ctrl.swiveller;
-  payload[3] = ctrl.rudder;
-  payload[4] = ctrl.elevator;
-  payload[5] = ctrl.ballonet;
-
-  // Combine header + payload for CRC computation
-  uint8_t temp[sizeof(header) + sizeof(payload)];
-  memcpy(temp, header, sizeof(header));
-  memcpy(temp + sizeof(header), payload, sizeof(payload));
-  uint8_t crc = computeCRC8(temp, sizeof(temp));
-
-  // Print the packet as hex (framed)
-  Serial.print("    [KTRL] Pakete: ");
-  Serial.print("7E ");
-  for (int i = 0; i < sizeof(temp); i++) {
-    if (i < 3) Serial.print("(H)");
-    else Serial.print("(P)");
-    if (temp[i] < 16) Serial.print("0");
-    Serial.print(temp[i], HEX);
-    Serial.print(" ");
-  }
-  Serial.print("(C)");
-  if (crc < 16) Serial.print("0");
-  Serial.print(crc, HEX);
-  Serial.println(" 7F");
-
-  Serial.println();
+  char buffer[40];
+  snprintf(buffer, sizeof(buffer),
+           "YYYY-MM-DDT%02lu:%02lu:%02lu+8:00",
+           hours, minutes, seconds);
+  return String(buffer);
 }
 
-// ======================================================
-// 📡 Telemetry Sender (Mock)
-// ======================================================
-void sendTelemetryToKL() {
-  Serial.print(timeStamp());
-  Serial.println(" [TLM] Nagpapadala ng telemetriya (kunwarian)");
-  Serial.println();
-  // Placeholder for telemetry structure
+String formatTimestamp(const TimeStatus &status) {
+  return "[" + getSourceTag(status.timeSource) + ": " + status.isoString + "]";
 }
 
-// ======================================================
-// ⚙️ Setup
-// ======================================================
+/* ------------------------------------------------------------
+ * CORE LOGIC
+ * ------------------------------------------------------------ */
+
 void setup() {
   Serial.begin(115200);
-  delay(1000);
-  Serial.println("\n === Pagsisimula ng MK Simulasyon ng Kontrol === \n");
-  randomSeed(analogRead(A0));
+  delay(500);
+  Serial.println("=== LNDH Timestamp System (NTP Mode) ===");
+
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("Connecting to WiFi");
+
+  unsigned long startAttempt = millis();
+  while (WiFi.status() != WL_CONNECTED && millis() - startAttempt < 8000) {
+    Serial.print(".");
+    delay(500);
+  }
+  Serial.println();
+
+  if (WiFi.status() == WL_CONNECTED) {
+    wifiConnected = true;
+    Serial.print("WiFi connected: ");
+    Serial.println(WiFi.localIP());
+
+    timeClient.begin();
+    timeClient.update();
+
+    currentTime.timeSource = SRC_NTP;
+    currentTime.validTime = true;
+  } else {
+    Serial.println("WiFi not available, using internal clock fallback.");
+    currentTime.timeSource = SRC_INT;
+    currentTime.validTime = true;
+  }
 }
 
-// ======================================================
-// 🔁 Main Loop
-// ======================================================
 void loop() {
-  readInputs();
-  sendControlToPS();
-  sendTelemetryToKL();
-  delay(100);  // simulate update interval
+  if (wifiConnected && WiFi.status() == WL_CONNECTED) {
+    if (timeClient.update()) {
+      time_t ntpTime = timeClient.getEpochTime();
+      currentTime.timeSource = SRC_NTP;
+      currentTime.isoString = formatISOtime(ntpTime);
+    }
+  } else {
+    unsigned long now = millis();
+    currentTime.timeSource = SRC_INT;
+    currentTime.isoString = formatInternalISO(now);
+  }
+
+  Serial.println(formatTimestamp(currentTime));
+  delay(1000);
 }
