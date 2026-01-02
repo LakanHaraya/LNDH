@@ -49,7 +49,7 @@ obhetibo, at mataas na antas ng paglalarawan ng proyekto, sapat upang:
 
 Ang dokumentong ito ay *hindi* detalyadong disenyo, *hindi* manwal ng gagamit, at *hindi* gabay sa implementasyon. Ito ay isang **antas na pantanaw sa proyekto** na naglalahad ng kung ano ang binubuo ng proyekto at kung paano ito lalapitan sa sistematikong paraan.
 
-## 2. Paglalarawan ng Proyekto
+## 2. Paglalarawan
 
 Ang **LundayHangin (LNDH)** ay isang modular na proyektong dron panghimpapawid na
 idinisenyo para sa pag-aaral, eksperimento, at praktikal na aplikasyon ng mga 
