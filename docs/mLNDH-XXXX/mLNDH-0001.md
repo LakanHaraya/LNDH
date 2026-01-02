@@ -1,22 +1,11 @@
-<div style="display:flex; justify-content:space-between; gap:1rem;">
-  <span>LundayHangin (LNDH)</span>
-  <span>L. H. Dima</span>
-</div>
+LundayHangin (LNDH)   
+**Dokumento:** mLNDH-0001   
+**Katayuan:** Balangkas  
+**Kategorya:** Panimulang Sanggunian  
 
-<div style="display:flex; justify-content:space-between; gap:1rem;">
-  <span><b>Dokumento:</b> mLNDH-0001</span>
-  <span>Purok Labimpito</span>
-</div>
-
-<div style="display:flex; justify-content:space-between; gap:1rem;">
-  <span><b>Katayuan:</b> Balangkas</span>
-  <span>Enero 2026</span>
-</div>
-
-<div style="display:flex; justify-content:space-between; gap:1rem;">
-  <span><b>Kategorya:</b> Panimulang Sanggunian</span>
-  <span></span>
-</div>
+L. H. Dima  
+Purok Labimpito  
+Enero 2026
 
 ---
 
@@ -24,18 +13,13 @@
 
 ## Katayuan ng Dokumentong Ito
 
-Ang dokumentong ito ay isang panimulang sanggunian ng Proyektong
-LundayHangin (LNDH) at inilaan bilang batayang dokumento ng buong
-hanay ng malapamantayan (mLNDH).
+Ang dokumentong ito ay isang **balangkas** at nagsisilbing panimulang
+sanggunian at batayang dokumento ng serye ng malapamantayan (**mLNDH**)
+ng Proyektong LundayHangin (LNDH). Ito ay inilaan para sa panloob na
+paggamit ng proyekto at maaaring baguhin o palawakin habang umuunlad
+ang sistema.
 
-Ang dokumentong ito ay:
-
-- inilathala para sa panloob na paggamit ng proyekto,
-- maaaring baguhin o palawakin habang umuunlad ang sistema, at
-- hindi bumubuo ng panlabas o regulasyong pamantayan.
-
-Ang pamamahagi ng dokumentong ito ay **hindi pinaghihigpitan** sa loob ng
-konteksto ng proyekto.
+Ang dokumentong ito ay hindi bumubuo ng panlabas na pamantayan sa regulasyon. Ito ay malayang maipamahagi sa loob ng konteksto ng proyekto.
 
 ## Abstrak
 
@@ -71,10 +55,12 @@ Ang **LundayHangin (LNDH)** ay isang modular na proyektong dron panghimpapawid n
 idinisenyo para sa pag-aaral, eksperimento, at praktikal na aplikasyon ng mga 
 prinsipyo ng:
 
-- inhenyeriya ng sistema (systems engineering),
+- pisika at aerodinamika ng mga sasakyang mas-magaan-sa-hangin (physics and aerodynamics of lighter-than-air vehicles),
+- inhenyeriya ng elektrikal at disenyo ng elektronikong sirkito (electrical engineering and electronic circuit design),
 - sistemang nakalubog (embedded systems),
-- disenyong nakatuon sa kaligtasan (safety-oriented design), at
-- arkitektura ng nakapamahaging kontrol (distributed control architectures).
+- arkitektura ng nakapamahaging kontrol (distributed control architectures),
+- inhenyeriya ng sistema (systems engineering), at
+- disenyong nakatuon sa kaligtasan (safety-oriented design).
 
 Bagamat pang-aliwan ang antas ng proyekto, ang LNDH ay sinadyang idinisenyo
 gamit ang propesyonal na disiplina sa pagbuo ng sistema, kabilang ang
@@ -140,7 +126,7 @@ ngunit may malinaw na hangganan ng tungkulin. Ang mga ito ay kolektibong tinutuk
 
 Ang LNDH ay tumatalima sa mga sumusunod na prinsipyong pangkaligtasan:
 
-- malinaw na paghihiwalay ng **bital** at **di-bital** na komponent,
+- malinaw na paghihiwalay ng **bital** at **di-bital** komponent,
 - **ligtas-sa-pagkabigo** (fail-safe) bilang nakatakdang estado, 
 - **marikit na degradasyon** sa harap ng pagkabigo, at
 - deterministikong asal ng mga bahagi na kritikal sa kaligtasan.
@@ -189,25 +175,18 @@ batayang punto ng buong hanay ng dokumentasyon ng Proyektong LundayHangin.
 Ito ay kabilang sa antas ng **pangkalahatang tanaw**, at hindi naglalaman
 ng detalyadong teknikal na espesipikasyon.
 
-Mula sa dokumentong ito ay lilikhain ang mga karagdagang dokumento na maaaring
-nakapangkat sa mga sumusunod na uri:
+Mula dito ay lilikhain ang mga karagdagang dokumento na maaaring kabilang sa:
 
-- **Mga dokumentong naglilinaw ng saklaw at depinisyon**, kabilang ang mga
-  kahingian, hangganan, at pangunahing termino ng sistema;
-- **Mga dokumentong pang-arkitektura at disenyo**, na naglalarawan ng
-  estruktura, ugnayan, at asal ng mga bahagi ng sistema;
-- **Mga dokumentong pilosopikal at patakaran**, na nagtatakda ng mga prinsipyo
-  sa kaligtasan, pagiging maaasahan, at pangkalahatang disiplina ng disenyo;
-- **Mga internal na pamantayan at mabubuting gawi (best practices)** para sa
-  pagpapaunlad ng software, at bahagi ng hardware;
-- **Mga plano at pamamaraan**, kabilang ang mga plano sa pagsubok,
-  balidasyon, beripikasyon, at pamamahala ng pagbabago; at
-- **Mga dokumentong sumusuporta sa pagpapanatili at pagpapalawak** ng sistema,
-  gaya ng gabay sa pagsusuri, pagsusubaybay, at patuloy na pag-unlad.
+- mga depinisyon at saklaw ng sistema,
+- arkitektura at disenyo ng mga bahagi at ugnayan nito,
+- mga prinsipyo at patakaran sa kaligtasan at disiplina ng inhenyeriya,
+- mga pamantayan at mabubuting kasanayan (best practices) sa
+  pagpapaunlad ng software at hardware,
+- mga plano at pamamaraan para sa pagsubok, beripikasyon, at pagbabago; at
+- mga gabay sa pagpapanatili at pagpapalawak ng sistema.
 
 Ang lahat ng susunod na dokumento ay inaasahang magiging konsistent sa mga
-prinsipyo, saklaw, at layuning inilatag sa dokumentong ito, at ituturing
-bilang bahagi ng iisang magkakaugnay na balangkas ng dokumentasyon ng proyekto.
+prinsipyo, saklaw, at layuning inilatag sa dokumentong ito at bubuo ng iisang magkakaugnay na balangkas ng dokumentasyon.
 
 ## 9. Sanggunian
 
@@ -224,9 +203,9 @@ pang-estruktura, hindi bilang mahigpit na normatibong espesipikasyon.
 ### 9.2 Mga Pamantayan sa Kaligtasan at Disenyo
 
 - **IEC 61508** – *Functional Safety of Electrical/Electronic/Programmable Electronic Safety-related Systems*  
-    Konseptuwal na sanggunian sa paghihiwalay ng bital at di-bital na mga
-    bahagi, disenyo na ligtas-sa-pagkabigo, at deterministikong asal ng mga
-    komponent na kritikal sa kaligtasan.
+    Konseptuwal na sanggunian sa paghihiwalay ng bital at
+    di-bital na mga bahagi, disenyo na ligtas-sa-pagkabigo,
+    at deterministikong asal ng mga komponent na kritikal sa kaligtasan.
 
 Ang mas detalyado at normatibong paggamit ng mga pamantayan ay
 inaasahang lilitaw sa mga susunod na dokumento ng serye ng mLNDH.
