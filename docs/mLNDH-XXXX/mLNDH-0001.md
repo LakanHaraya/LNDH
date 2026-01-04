@@ -188,28 +188,7 @@ Mula dito ay lilikhain ang mga karagdagang dokumento na maaaring kabilang sa:
 Ang lahat ng susunod na dokumento ay inaasahang magiging konsistent sa mga
 prinsipyo, saklaw, at layuning inilatag sa dokumentong ito at bubuo ng iisang magkakaugnay na balangkas ng dokumentasyon.
 
-## 9. Sanggunian
-
-Ang mga sumusunod na pamantayan ay ginamit bilang sangguniang konseptuwal at
-pang-estruktura, hindi bilang mahigpit na normatibong espesipikasyon.
-
-### 9.1 Mga Pamantayan sa Inhenyeriya ng Sistema
-
-- **ISO/IEC/IEEE 15288** – *Systems and Software Engineering — System Life Cycle Processes*  
-    Pinagbatayan ng pagtingin sa LNDH bilang isang sistema na may malinaw
-    na saklaw, hangganan, at magkakaugnay na bahagi, at ng pag-uuri ng mga
-    dokumento ayon sa antas at layunin.
-
-### 9.2 Mga Pamantayan sa Kaligtasan at Disenyo
-
-- **IEC 61508** – *Functional Safety of Electrical/Electronic/Programmable Electronic Safety-related Systems*  
-    Konseptuwal na sanggunian sa paghihiwalay ng bital at
-    di-bital na mga bahagi, disenyo na ligtas-sa-pagkabigo,
-    at deterministikong asal ng mga komponent na kritikal sa kaligtasan.
-
-Ang mas detalyado at normatibong paggamit ng mga pamantayan ay
-inaasahang lilitaw sa mga susunod na dokumento ng serye ng mLNDH.
-
 ## 10. Kasaysayan
 
 - **v0.1.0** – Paunang balangkas ng dokumento. *(2025-02-01)*
+- **v0.1.1** – Munting pagsasaayos ng balangkas. *(2025-04-01)*
