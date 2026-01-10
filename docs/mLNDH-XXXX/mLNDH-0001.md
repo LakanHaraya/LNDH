@@ -11,19 +11,10 @@ Enero 2026
 
 <h1 align="center">Pangkalahatang Tanaw ng LundayHangin</h1>
 
-## Katayuan ng Dokumentong Ito
-
-Ang dokumentong ito ay isang **balangkas** at nagsisilbing panimulang
-sanggunian at batayang dokumento ng serye ng malapamantayan (**mLNDH**)
-ng Proyektong LundayHangin (LNDH). Ito ay inilaan para sa panloob na
-paggamit ng proyekto at maaaring baguhin o palawakin habang umuunlad
-ang sistema.
-
-Ang dokumentong ito ay hindi bumubuo ng panlabas na pamantayan sa regulasyon. Ito ay malayang maipamahagi sa loob ng konteksto ng proyekto.
 
 ## Abstrak
 
-Ang dokumentong mLNDH-0001 ay naglalahad ng pangkalahatang layunin,
+Ang mLNDH-0001 ay naglalahad ng pangkalahatang layunin,
 saklaw, at prinsipyong gumagabay sa Proyektong LundayHangin (LNDH),
 isang modular na proyektong dron na nakabatay sa lundayhangin (airship) at
 idinisenyo para sa pag-aaral at praktikal na aplikasyon ng inhenyeriya
@@ -34,8 +25,17 @@ ng Pinakamunting Mabisang Sistema (PMMS), ang pangunahing segmentong
 pang-operasyon, at ang mga prinsipyong pangkaligtasan at dokumentasyon
 na sinusunod sa buong siklo ng buhay ng sistema.
 
----
+## Katayuan ng Dokumentong Ito
 
+Ang dokumentong ito ay isang **balangkas** at nagsisilbing panimulang
+sanggunian at batayang dokumento ng serye ng malapamantayan (**mLNDH**)
+ng Proyektong LundayHangin (LNDH). Ito ay inilaan para sa panloob na
+paggamit ng proyekto at maaaring baguhin o palawakin habang umuunlad
+ang sistema.
+
+Ang dokumentong ito ay hindi bumubuo ng eksternal na pamantayang panregulasyon. Ito ay malayang maipamahagi sa loob ng konteksto ng proyekto.
+
+---
 
 ## 1. Layunin
 

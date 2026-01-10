@@ -11,13 +11,6 @@ Enero 2026
 
 <h1 align="center">Mga Salitang Normatibo na Ginagamit sa Malapamantayan para Ipahiwatig ang Antas ng Kahingian</h1>
 
-## Katayuan ng Dokumentong Ito
-
-Ang dokumentong ito ay nagtatakda ng pinakamabuting kasalukuyang kasanayan para
-sa paggamit ng mga salitang normatibo sa loob ng serye ng malapamantaya
-(mLNDH). Ito ay inilalathala para sa paggamit, talakayan, at patuloy na
-pagpapahusay. Walang hangganan ang pamamahagi ng dokumentong ito.
-
 ## Abstrak
 
 Sa loob ng mga dokumentong teknikal, karaniwang ginagamit ang ilang
@@ -30,6 +23,13 @@ ng mga salitang normatibo na ginagamit sa malapamantayan ng LundayHangin
 >    ang **"DAPAT"**, **"HINDI DAPAT"**, **"NARARAPAT"**, **"HINDI NARARAPAT"**, at **"MAAARI"**,
 >    ay binibigyan ng kahulugan at ipinahihiwatig ang antas ng kahingian
 >    ayon sa mLNDH-0002.
+
+## Katayuan ng Dokumentong Ito
+
+Ang dokumentong ito ay nagtatakda ng pinakamabuting kasalukuyang kasanayan para
+sa paggamit ng mga salitang normatibo sa loob ng serye ng malapamantaya
+(mLNDH). Ito ay inilalathala para sa paggamit, talakayan, at patuloy na
+pagpapahusay. Walang hangganan ang pamamahagi ng dokumentong ito.
 
 ## 1. Batayang Lingguwistiko ng mga Salitang Normatibo
 
