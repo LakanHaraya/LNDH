@@ -1,20 +1,15 @@
-## Halimbawang Kaayusan
+## 🧠 Final mental checklist (tandaan ito)
 
-``` txt
+Kapag may bagong code ka at nagtanong ka sa sarili:
 
-include/
-├─ LundayHangin.h
-├─ takna/
-│  └─ takna.h
-└─ lndh_proto/
-   └─ lndh_msg.h
+> ❓ “Saan ko ito ilalagay?”
 
-src/
-├─ common/
-│  ├─ takna/
-│  │  └─ takna.cpp
-│  └─ lndh_proto/
-│     └─ lndh_msg.cpp
-├─ LH_PS/
-│  └─ main.cpp
-```
+Sagutin mo ito:
+
+1. API ba ito? → `include/`
+
+2. Shared implementation ba? → `src/common/`
+
+3. Role-specific behavior? → `src/LH_XX/`
+
+4. Puwede bang reusable sa ibang proyekto? → `lib/` (sa hinaharap)
