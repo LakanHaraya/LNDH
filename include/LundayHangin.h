@@ -4,3 +4,4 @@
 
 #include "lndh_role/lndh_role.h"
 #include "lndh_banner/lndh_banner.h"
+#include "lndh_version/lndh_version.h"
