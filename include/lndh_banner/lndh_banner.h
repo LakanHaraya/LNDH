@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
-#include "lndh_role.h"
+#include "lndh_role/lndh_role.h"
 
 inline const char* lndh_role_name() {
     switch (LNDH_ROLE) {

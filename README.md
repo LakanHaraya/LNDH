@@ -21,20 +21,30 @@ Sa kabuoan, layunin nitong magbigay ng **isang malinaw, modular, at madaling pau
 
 ``` txt
 LNDH/
-|— .vscode/         # Mga kagamitang pantulong sa VSCode
-|— include/         # Mga pangkalahatang header files
-|— lib/             # Mga sariling likhang aklatan (libraries)
-|   |— konstant/        # Mga pangkalahatang konstant
-|   |— tibok/           # Mga panghudyat sa sistema
-|— src/             # Kodigo mulaan ng bawat yunit
-|   |— LH_PS/           # Pangunahing Sasakyan  (Main Drone)
-|   |— LH_MK/           # Malayuang Kontroler   (Remote Controller)
-|   |— LH_TD/           # Takad Daungan         (Docking Base)
-|   |— LH_KL/           # Kontrol sa Lupa       (Ground Control Station)
-|— test/            # Lugar ng eksperimento at pagsubok
-|   |— subukin.cpp
-|— platformio.ini   # Kumpigurasyon ng buong proyekto
+ ├─ .pio/
+ ├─ .vscode/
+ ├─ docs/
+ ├─ include/
+ ├─ lib/
+ ├─ src/
+ ├─ test/
+ ├─ .gitignore
+ ├─ platform.ini
+ └─ README.md
 ```
+
+- `LNDH/` – Ang pangunahing lalagyan ng buong proyekto ng *LundayHangin*, kung saan nagkakatipon ang firmware, dokumentasyon, kumpigurasyon, at kasaysayan ng pag-unlad ng sistema sa isang maayos at masusubaybayang estruktura.
+
+    - `.pio/` – Awtomatikong nililikha ng PlatformIO at naglalaman ng mga build artifact, dependency cache, at environment-specific outputs.
+    - `.vscode/` – Lokal na kumpigurasyon ng Visual Studio Code at PlatformIO extension (tasks, settings, at workspace metadata).
+    - `docs/` – Pormal na dokumetasyon ng proyekto, kabilang ang mLNDH references, disenyo, at tala ng desisyon.
+    - `include/` – Pampublikong header files na bumubuo sa opisyal na Application Programming Interface (API) ng LNDH firmware.
+    - `lib/` – Mga third-party o internal libraries na hiwalay ang lifecycle at maaaring i-reuse sa ibang proyekto.
+    - `src/` – Pangunahing source code ng firmware, hinati ayon sa common modules at role-specific implementations.
+    - `test/` – Kaligirang pansubok para sa sandbox code, eksperimento, at unit o integration tests.
+    - `.gitignore` – Talaan ng mga file at folder na hindi isinasama sa version control.
+    - `platform.ini` – Sentral na kumpigurasyon ng build, environment, at role mapping ng PlatformIO.
+    - `README.md` – Pambungad at mataas-na-antas na paliwanag ng proyekto para sa mga bagong mambabasa at kontribyutor.
 
 ---
 
