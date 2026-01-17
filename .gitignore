@@ -3,11 +3,3 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/ipch
-
-# Balewalain ang lahat ng doku bilang default
-docs/**
-
-# Pero panatilihin ang dalawang opisyal na dokumento
-!docs/mLNDH-XXXX/
-!docs/mLNDH-XXXX/mLNDH-0001.md
-!docs/mLNDH-XXXX/mLNDH-0002.md
