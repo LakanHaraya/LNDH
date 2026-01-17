@@ -6,7 +6,15 @@ Ang format na ito ay batay sa [Keep a Changelog](https://keepachangelog.com/en/1
 
 ---
 
-## [0.1.1] - 2025-01-12 - Batayang Takbuhin (Core Runtime)
+## [0.1.2] - 2026-01-17 - PINAUUSWAG
+
+### Pinalitan
+
+- Binagong estruktura ng dokumentasyon sa `doku/`
+
+---
+
+## [0.1.1] - 2026-01-12 - Batayang Takbuhin (Core Runtime)
 
 ### Idinagdag
 - **LNDH Core Runtime**: role-agnostic at non-blocking na execution core
