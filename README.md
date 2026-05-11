@@ -1,25 +1,77 @@
-# 🌬️ LNDH — *LundayHangin*
+<p style="font-size:32px; font-weight:700; margin:0; display:flex; align-items:center; gap:8px;">
+  <img src="./assets/icons/dirihible.svg" width="90">
+  LNDH — <i>LundayHangin</i>
+</p>
 
-**Isang modular na airship‑drone ecosystem** para sa eksperimento, pagkatuto, at maingat na pag-scale mula prototype hanggang mas disiplinadong sistema.
+![Status](https://img.shields.io/badge/status-experimental-orange)
+![Development Board](https://img.shields.io/badge/development%20board-Arduino%20Nano%20ESP32-blue)
+![Framework](https://img.shields.io/badge/framework-Arduino-00979D)
+![Architecture](https://img.shields.io/badge/architecture-distributed-lightgreen)
+![Type](https://img.shields.io/badge/type-airship%20drone-informational)
+![Language](https://img.shields.io/badge/language-Filipino-green)
+![License](https://img.shields.io/badge/license-TBD-red)
+
+Ang **LNDH / *LundayHangin*** ay isang pangmatagalang proyektong pang-inhenyeriya na nakatuon sa pagbuo ng isang mababang gastos ngunit sistematikong plataporma ng dron na dirihible gamit ang mga abot-kayang kagamitang elektroniko, bukás na mapagkukunang lohisil, at paraang paulit-ulit na pagpapaunlad ng sistema.
+
+Layunin ng proyekto na magsilbing eksperimental na plataporma para sa pag-aaral at pagpapaunlad ng mga konsepto sa sistemang nakaembed, komunikasyong walangkawad, telemetriya, malayuang operasyon, awtonomong asal ng sistema, at mga sistemang robotiko na nakapamahagi.
+
+Ang paunang balangkas ng sistema ay binubuo ng mga modular na yunit na may kani-kaniyang tungkulin sa operasyon, kabilang ang Yunit ng Dron na Dirihible (YDD/ADU), Yunit ng Malayuang Kontrol (YMK/RCU), Yunit ng Takad na Daungan (YTD/DBU), at Himpilan ng Kontrol sa Lupa (HKL/GCS).
+
+Bagaman nasa eksperimental na yugto pa lamang, sinisikap nitong sundin ang ilang pangunahing konseptong karaniwang matatagpuan sa mga sistemang pang-inhenyeriya at pang-industriyang antas gaya ng modularidad, telemetriya, pagtukoy ng mga depekto, mantenebilidad, at paunti-unting integrasyon ng mga bahagi nito.
+
+Hindi layunin ng proyektong ito na agad makabuo ng ganap na awtonomong plataporma ng dirihible. Sa halip, binibigyan ng halaga nito ang maingat at unti-unting pagpapaunlad, parktikal na eksperimento, dokumentasyon, at patuloy na pagkatuto habang lumalawak ang kakayahan ng sistema.
 
 ---
 
-## 📌 Ano ito?
+## Pangkalahatang Tanaw ng Sistema
 
-Ang **LNDH (LundayHangin)** ay isang **maramihang‑yunit** na proyektong panghimpapawid. Binubuo ito ng ilang MCU‑based na *roles* na may kanya‑kanyang tungkulin ngunit **nakikipag‑ugnayan bilang iisang sistema** upang patakbuhin ang isang airship‑drone.
+## Mga Yunit
 
-Dinisenyo ang proyekto na:
+| Yunit | Buong Pangalan | Tungkulin | Katayuan |
+| --- | --- | --- | --- |
+| YDD / ADU | Yunit ng Dron na Dirihible | Pangunahing sasakyan sa hangin | 🟠 Binubuo | 
+| YMK / RCU | Yunit ng Malayuang Kontrol | Kontrol na hawak ng opereytor | 🟠 Binubuo |
+| YTD / DBU | Yunit ng Takad na Daungan | Pagdaong at suporta sa lupa | 🔴 Nakaplano |
+| HKL / GCS | Himpilan ng Kontrol sa Lupa | Telemetriya at pagmamasid | 🔴 Nakaplano |
 
-* 🔁 **Modular** — madaling palitan o dagdagan ang bahagi
-* 🧱 **Role‑based** — malinaw ang hangganan ng responsibilidad
-* 📐 **Documented‑by‑design** — may pormal na mLNDH documents at changelog
-* 🧪 **Prototype‑first** — inuuna ang pagkatuto, pero may disiplina sa pag‑unlad
+## Plataporma at Mga Kahingian
 
-Sa madaling sabi: *mas gusto ng LNDH ang maayos na proseso kaysa sa magulong “gumagana naman”.* (Oo, mas mabagal — pero mas tahimik ang konsensya.)
+- Arduino Nano ESP32 — lahat ng yunit
+- Arduino framework (PlatformIO)
+- *Mga karagdagang dependensiya: tingnan ang bawat `src/[yunit]/`*
+
+## Estruktura ng Repositoryo
+
+**Panukala:**
+```
+LNDH/
+├── src/
+│   ├── ydd/        # Yunit ng Dron na Dirihible
+│   ├── ymk/        # Yunit ng Malayuang Kontrol
+│   ├── ytd/        # Yunit ng Takad na Daungan
+│   └── hkl/        # Himpilan ng Kontrol sa Lupa
+├── docs/
+│   ├── architecture.md
+│   ├── comms-protocol.md
+│   └── ...
+└── README.md
+```
+
+## Dokumentasyon
+
+- [Halimbawa ng Dokumentasyon](docs/pamagat-ng-doku.md)
+
+<!-- - [Arkitektura ng Sistema](docs/architecture.md)
+- [Protokol ng Komunikasyon](docs/comms-protocol.md)
+- [Gabay sa Pagpapaunlad](docs/dev-guide.md)
+- [Talaan ng mga Pagbabago](docs/changelog.md) -->
+
+## Lisensiya
+
 
 ---
 
-## 🎯 Layunin sa Mataas na Antas
+<!-- ## 🎯 Layunin sa Mataas na Antas
 
 * Bumuo ng **isang lumilipad na pangunahing sasakyan** na kayang magsagawa ng misyon.
 * Bumuo ng **hiwalay ngunit magkakaugnay na mga yunit** para sa kontrol, daungan, at pagmamanman.
@@ -138,4 +190,4 @@ Lakan Haraya Dima
 
 ## 🔑 Lisensiya
 
-*(Tinutukoy pa)*
+*(Tinutukoy pa)* -->

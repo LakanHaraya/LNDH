@@ -188,7 +188,7 @@ Mula dito ay lilikhain ang mga karagdagang dokumento na maaaring kabilang sa:
 Ang lahat ng susunod na dokumento ay inaasahang magiging konsistent sa mga
 prinsipyo, saklaw, at layuning inilatag sa dokumentong ito at bubuo ng iisang magkakaugnay na balangkas ng dokumentasyon.
 
-## 10. Kasaysayan
+## 9. Kasaysayan
 
 - **v0.1.0** – Paunang balangkas ng dokumento. *(2025-02-01)*
 - **v0.1.1** – Munting pagsasaayos ng balangkas. *(2025-04-01)*
