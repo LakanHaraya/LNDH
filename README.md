@@ -25,14 +25,16 @@ Hindi layunin ng proyektong ito na agad makabuo ng ganap na awtonomong plataporm
 
 ## Pangkalahatang Tanaw ng Sistema
 
+*... Binubuo pa*
+
 ## Mga Yunit
 
 | Yunit | Buong Pangalan | Tungkulin | Katayuan |
 | --- | --- | --- | --- |
-| YDD / ADU | Yunit ng Dron na Dirihible | Pangunahing sasakyan sa hangin | 🟠 Binubuo | 
-| YMK / RCU | Yunit ng Malayuang Kontrol | Kontrol na hawak ng opereytor | 🟠 Binubuo |
-| YTD / DBU | Yunit ng Takad na Daungan | Pagdaong at suporta sa lupa | 🔴 Nakaplano |
-| HKL / GCS | Himpilan ng Kontrol sa Lupa | Telemetriya at pagmamasid | 🔴 Nakaplano |
+| `YDD` <br> *ADU* | Yunit ng Dron na Dirihible <br> *Airship Drone Unit* | Pangunahing sasakyan sa hangin | 🟠 Binubuo | 
+| `YMK` <br> *RCU* | Yunit ng Malayuang Kontrol <br> *Remote Control Unit* | Kontrol na hawak ng opereytor | 🟠 Binubuo |
+| `YTD` <br> *DBU* | Yunit ng Takad na Daungan <br> *Docking Base Unit* | Pagdaong at suporta sa lupa | 🔴 Nakaplano |
+| `HKL` <br> *GCS* | Himpilan ng Kontrol sa Lupa <br> *Ground Control Station* | Telemetriya at pagmamasid | 🔴 Nakaplano |
 
 ## Plataporma at Mga Kahingian
 
@@ -42,7 +44,7 @@ Hindi layunin ng proyektong ito na agad makabuo ng ganap na awtonomong plataporm
 
 ## Estruktura ng Repositoryo
 
-**Panukala:**
+*... Binubuo pa*
 ```
 LNDH/
 ├── src/
@@ -61,6 +63,8 @@ LNDH/
 
 - [Halimbawa ng Dokumentasyon](docs/pamagat-ng-doku.md)
 
+- *... Binubuo pa*
+
 <!-- - [Arkitektura ng Sistema](docs/architecture.md)
 - [Protokol ng Komunikasyon](docs/comms-protocol.md)
 - [Gabay sa Pagpapaunlad](docs/dev-guide.md)
@@ -68,6 +72,7 @@ LNDH/
 
 ## Lisensiya
 
+* ... Binubuo pa*
 
 ---
 
