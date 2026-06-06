@@ -1,4 +1,4 @@
-# Project Structure
+# Directory Structure
 
 ```text
 LNDH/
@@ -8,7 +8,7 @@ LNDH/
 │   ├── extensions.json
 │   └── launch.json
 ├── docs
-│   ├── TREE.md
+│   ├── DIREKTORYO.md
 │   └── gabay
 │       ├── README.md
 │       ├── commands-git.md
@@ -35,5 +35,6 @@ LNDH/
 └── tools
     └── dirstructgen
         ├── README
+        ├── dirstructgen.cmd
         └── dirstructgen.py
 ```

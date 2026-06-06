@@ -25,31 +25,32 @@ DESKRIPSYON:
 
 GAMIT:
 
-   python tools/dirstructgen/dirstructgen.py                 → normal run (with .gitignore)
-   python tools/dirstructgen/dirstructgen.py -p LNDH         → specify folder
-   python tools/dirstructgen/dirstructgen.py -o OUT.md       → custom output file
-   python tools/dirstructgen/dirstructgen.py -i temp cache   → dagdag ignore
-   python tools/dirstructgen/dirstructgen.py --no-gitignore  → ignore .gitignore
-   python tools/dirstructgen/dirstructgen.py -t "Project"    → custom title
-   python tools/dirstructgen/dirstructgen.py ?               → help
+   dirstructgen                 → karaniwang paggana (may .gitignore)
+   dirstructgen -p LNDH         → tukuyin ang folder na iguguhit (default sa LNDH)
+   dirstructgen -o docs/OUT.md  → pasadyang output file
+   dirstructgen -i temp cache   → dagdagan ang babalewalaing folders/files
+   dirstructgen --no-gitignore  → huwag basahin ang .gitignore
+   dirstructgen -t "Project"    → pasadyang pamagat sa markdown
+   dirstructgen ?               → ipakita ang tulong na ito
 
-OPTIONS:
+OPSIYON:
 
    -p, --path
-       Root folder
+       Root folder na iguguhit (default: kasalukuyang folder)
    -o, --output
-       Output markdown file (default: TREE.md)
+       Output markdown file (default: DIREKTORYO.md)
    -i, --ignore
-       Extra ignore folders/files
+       Karagdagang folders/files na babalewalain(space-separated list)
    -t, --title
-       Markdown title
+       Pamagat ng markdown file (default: "Directory Structure")
    --no-gitignore
-       Disable .gitignore loading
+       Huwag paganahin ang .gitignore loading
+       (awtomatikong ginagamit kung may .gitignore sa root)
 
-IGNORE PRIORITY ORDER:
-   1. .gitignore (if enabled)
+SUNURAN NG PRIYORIDAD NG PAGBALEWALA:
+   1. .gitignore (kung hindi pinigilan)
    2. DEFAULT_IGNORE
-   3. CLI --ignore
+   3. CLI --ignore 
 
     ════════════════════════════════════════════
 """)
@@ -161,22 +162,22 @@ def main():
         return
 
     parser = argparse.ArgumentParser(
-        description="ArboDoc - Smart Directory Tree Generator"
+        description="Matalinong tagalatag ng estruktura ng direktoryo sa Markdown (suporta .gitignore)",
     )
 
-    parser.add_argument("-p", "--path", default=".", help="Root project path")
-    parser.add_argument("-o", "--output", default="TREE.md", help="Output markdown file")
-    parser.add_argument("-i", "--ignore", nargs="*", default=[], help="Extra ignore list")
-    parser.add_argument("-t", "--title", default="Project Structure", help="Markdown title")
+    parser.add_argument("-p", "--path", default=".", help="Root folder na iguguhit (default: kasalukuyang folder)")
+    parser.add_argument("-o", "--output", default="DIREKTORYO.md", help="Output markdown file (default: DIREKTORYO.md)")
+    parser.add_argument("-i", "--ignore", nargs="*", default=[], help="Karagdagang folders/files na babalewalain (space-separated list)")
+    parser.add_argument("-t", "--title", default="Directory Structure", help="Pamagat ng markdown file (default: \"Directory Structure\")")
     parser.add_argument(
         "--no-gitignore",
         action="store_true",
-        help="Disable .gitignore parsing"
+        help="Huwag paganahin ang .gitignore loading (awtomatikong ginagamit kung may .gitignore sa root)"
     )
     parser.add_argument(
         "--include-output",
         action="store_true",
-        help="Include generated output file in tree (default: excluded)"
+        help="Isama ang generated output file sa tree (default: excluded)"
     )
 
     args = parser.parse_args()
@@ -213,7 +214,7 @@ def main():
 
     save_markdown(tree, args.output, args.title)
 
-    print(f"\n  Tree generated: {args.output}")
+    print(f"\n  Nalikha ang direktoryo: {args.output}")
 
 # =========================
 # ENTRY POINT
