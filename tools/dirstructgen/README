@@ -1,0 +1,222 @@
+# DirStructGen
+![Version](https://img.shields.io/badge/version-0.1.0-blue)
+![Python](https://img.shields.io/badge/python-3.x-green)
+
+**Tagalatag ng Estruktura ng Direktoryo**
+
+Isang magaan at portable na command-line utility na lumilikha ng Markdown na representasyon ng istruktura ng mga folder at file ng isang proyekto.
+
+Mainam itong gamitin para sa dokumentasyon, pagsusuri ng proyekto, at pagpapanatili ng malinaw na pangkalahatang tanaw ng organisasyon ng mga file.
+
+---
+
+## Mga Katangian
+
+* Recursive directory tree generation
+* Markdown output
+* Suporta sa `.gitignore`
+* Karagdagang ignore list mula sa command line
+* Maaaring isama o ibukod ang output file sa nabuong tree
+* Kusang paglikha ng output directory kung kinakailangan
+* Portable at walang external dependencies
+* Gumagana sa anumang Python 3 environment
+
+---
+
+## Mga Kinakailangan
+
+* Python 3.8 o mas bago
+
+Suriin ang bersyon:
+
+```bash
+python --version
+```
+
+---
+
+## Pag-install
+
+Walang kinakailangang pag-install.
+
+Patakbuhin lamang ang script:
+
+```bash
+python tools/dirstructgen/dirstructgen.py
+```
+
+---
+
+## Pangunahing Paggamit
+
+### Default
+
+```bash
+python tools/dirstructgen/dirstructgen.py
+```
+
+Lilikha ng:
+
+```text
+TREE.md
+```
+
+sa kasalukuyang direktoryo.
+
+---
+
+### Tukoy na Direktoryo
+
+```bash
+python tools/dirstructgen/dirstructgen.py -p LNDH
+```
+
+---
+
+### Tukoy na Output File
+
+```bash
+python tools/dirstructgen/dirstructgen.py -o docs/TREE.md
+```
+
+---
+
+### Custom na Pamagat
+
+```bash
+python tools/dirstructgen/dirstructgen.py \
+    -t "Estruktura ng Proyekto"
+```
+
+---
+
+### Karagdagang Ignore Entries
+
+```bash
+python tools/dirstructgen/dirstructgen.py \
+    -i logs cache temp
+```
+
+---
+
+### Huwag Basahin ang `.gitignore`
+
+```bash
+python tools/dirstructgen/dirstructgen.py \
+    --no-gitignore
+```
+
+---
+
+### Isama ang Output File
+
+```bash
+python tools/dirstructgen/dirstructgen.py \
+    -o docs/TREE.md \
+    --include-output
+```
+
+Halimbawa:
+
+```text
+docs/
+└── TREE.md
+```
+
+---
+
+### Tulong
+
+```bash
+python tools/dirstructgen/dirstructgen.py ?
+```
+
+---
+
+## Prayoridad ng Ignore Rules
+
+Kapag bumubuo ng tree, ginagamit ang sumusunod na pagkakasunod-sunod:
+
+1. `.gitignore`
+2. `DEFAULT_IGNORE`
+3. `--ignore`
+
+---
+
+## Halimbawa ng Output
+
+````markdown
+# Project Structure
+
+```text
+MyProject/
+├── docs
+│   └── TREE.md
+├── include
+├── src
+│   └── main.cpp
+└── platformio.ini
+```
+````
+
+---
+
+## Estruktura ng Tool
+
+```text
+tools/
+└── dirstructgen/
+    ├── dirstructgen.py
+    └── README.md
+```
+
+---
+
+## Mga Kilalang Limitasyon
+
+Sa kasalukuyang bersyon, ang `.gitignore` parser ay simple lamang.
+
+Sinusuportahan nito ang mga karaniwang entry gaya ng:
+
+```gitignore
+.pio
+build
+cache
+```
+
+Hindi pa ganap na sinusuportahan ang mas komplikadong pattern tulad ng:
+
+```gitignore
+*.log
+**/cache
+!important.log
+```
+
+Maaaring idagdag ito sa mga susunod na bersyon.
+
+---
+
+## Roadmap
+
+### v0.2.x -- *(plano)*
+
+* Depth limiting
+* File at folder statistics
+* TXT output
+* JSON output
+* Advanced `.gitignore` pattern support
+* Configuration file support
+* CI integration
+* Automated documentation workflows
+
+---
+
+## Lisensya
+
+Malayang gamitin, baguhin, at paunlarin para sa personal, akademiko, at pang-inhinyeriyang mga proyekto.
+
+---
+
+## May-akda
+
+Lakan Haraya Dima
