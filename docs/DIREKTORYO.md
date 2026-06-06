@@ -7,6 +7,7 @@ LNDH/
 │   ├── c_cpp_properties.json
 │   ├── extensions.json
 │   └── launch.json
+├── TOBECONTINUED.md
 ├── docs
 │   ├── DIREKTORYO.md
 │   └── gabay
@@ -16,9 +17,15 @@ LNDH/
 │       ├── workflow-git.md
 │       └── workflow-terminal.md
 ├── include
-│   └── README
+│   ├── README
+│   ├── lndh_core.h
+│   └── lndh_packet.h
 ├── lib
-│   └── README
+│   ├── README
+│   └── lndh_comm
+│       ├── comm_interface.h
+│       ├── comm_manager.cpp
+│       └── comm_manager.h
 ├── platformio.ini
 ├── src
 │   ├── LH_KL
