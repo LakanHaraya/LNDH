@@ -3,8 +3,12 @@
 ```text
 LNDH/
 ├── .gitignore
-├── TREE.md
+├── .vscode
+│   ├── c_cpp_properties.json
+│   ├── extensions.json
+│   └── launch.json
 ├── docs
+│   ├── TREE.md
 │   └── gabay
 │       ├── README.md
 │       ├── commands-git.md
@@ -29,5 +33,6 @@ LNDH/
 │   ├── README
 │   └── test.cpp
 └── tools
-    └── treegen.py
+    └── dirstructgen
+        └── dirstructgen.py
 ```
