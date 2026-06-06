@@ -36,5 +36,7 @@ LNDH/
     └── dirstructgen
         ├── README
         ├── dirstructgen.cmd
-        └── dirstructgen.py
+        ├── dirstructgen.py
+        ├── dirstructgen_help.py
+        └── dirstructgen_version.py
 ```
