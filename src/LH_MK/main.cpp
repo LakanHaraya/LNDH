@@ -7,11 +7,6 @@
 #define HEARTBEAT_INTERVAL 1000
 #define SETUP_DELAY 1000
 
-// ======================
-// VARYABLE NG ESTADO
-// ======================
-unsigned long lastHeartbeat = 0;
-
 void setup() {
   Serial.begin(SERIAL_BAUD);
   delay(SETUP_DELAY);
