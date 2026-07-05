@@ -184,8 +184,20 @@ docs/
 
 ```bash
 python tools/dirstructgen/dirstructgen.py ?
+
 python tools/dirstructgen/dirstructgen.py --help
 ```
+
+---
+
+### 9. Show Version
+
+```bash
+python tools/dirstructgen/dirstructgen.py -v
+
+python tools/dirstructgen/dirstructgen.py --version
+```
+
 
 ---
 
@@ -365,7 +377,7 @@ python dirstructgen.py -p ../project_b -o docs/project_b_structure.md
 
 - Walang sorting by file type
 - Walang file size statistics
-- Singleng level title lamang
+- Simpleng level title lamang
 - Walang pasadyang styling/colors
 - Tanging markdown output lamang (v0.1.x)
 
@@ -422,7 +434,7 @@ chmod +x dirstructgen.py
 python dirstructgen.py --no-gitignore  # Subukin nang walang .gitignore
 ```
 
-### Isyue: Ang output file ay lumitaw sa talatagan
+### Isyu: Ang output file ay HINDI lumitaw sa talatagan
 
 **Solusyon:** Gumamit ng `--include-output` flag kung gusto mong isama, o wala kung exclude
 

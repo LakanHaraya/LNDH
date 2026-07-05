@@ -145,6 +145,11 @@ def main():
 
     args = parser.parse_args()
 
+    # VERSION CHECK
+    if args.version:
+        print_version()
+        return
+
     if args.include_output:
         touch_output_file(args.output)
 
