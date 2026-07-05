@@ -65,8 +65,48 @@ python tools/dirstructgen/dirstructgen.py
 # Opsiyon 2: Windows batch (mas convenient)
 dirstructgen.cmd
 
-# Opsiyon 3: Idagdag sa PATH para sa global access
-# (opsiyonal lamang)
+# Opsiyon 3: Idagdag sa PATH para sa global access (opsiyonal)
+# Windows: Add tools/dirstructgen/ to your PATH
+```
+
+### Windows Batch Wrapper (`dirstructgen.cmd`)
+
+Ang batch wrapper ay nag-provide ng convenient Windows integration:
+
+**Features:**
+- ✓ Auto-detects Python installation
+- ✓ Tries `py` launcher first (modern), falls back to `python` (traditional)
+- ✓ Proper error handling with helpful messages
+- ✓ Supports all command-line arguments
+- ✓ Passes through exit codes correctly
+
+**Kung paano gumagana:**
+
+```
+dirstructgen.cmd
+    ↓
+Hanapin ang Python executable
+    ↓
+Try 1: py (Python launcher)
+Try 2: python (PATH)
+Try 3: python3 (PATH)
+    ↓
+Kung found: patakbuhin ang dirstructgen.py
+Kung not found: ipakita ang error message
+```
+
+**Troubleshooting:**
+
+Kung `dirstructgen.cmd` ay may error "Python ay hindi nakita":
+
+```bash
+# Check if Python is installed
+python --version
+
+# If not installed, download from:
+# https://www.python.org/downloads/
+
+# During installation, IMPORTANT: Check "Add Python to PATH"
 ```
 
 ---
