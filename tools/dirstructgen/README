@@ -1,226 +1,462 @@
-<!-- # DirStructGen
+# DirStructGen
+
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
-![Python](https://img.shields.io/badge/python-3.x-green)
+![Python](https://img.shields.io/badge/python-3.8+-green)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-blue)
 
-**Tagalatag ng Estruktura ng Direktoryo**
+Matalinong tagalatag ng directory structure sa Markdown format. Perpekto para sa project documentation, team collaboration, at code repository organization.
 
-Isang magaan at portable na command-line utility na lumilikha ng Markdown na representasyon ng istruktura ng mga folder at file ng isang proyekto.
+## Mabilis na Simula
 
-Mainam itong gamitin para sa dokumentasyon, pagsusuri ng proyekto, at pagpapanatili ng malinaw na pangkalahatang tanaw ng organisasyon ng mga file.
+```bash
+# Windows
+dirstructgen.cmd
+
+# Linux / macOS
+python tools/dirstructgen/dirstructgen.py
+```
+
+Awtomatikong lilikha ng `DIREKTORYO.md` sa current directory.
+
+---
+
+## Tungkol sa Tool
+
+**DirStructGen** ay lightweight command-line utility na nagge-generate ng hierarchical directory structure sa Markdown. Idinisenyo para maging:
+
+- **Simple** - Zero dependencies, walang configuration needed
+- **Fast** - Mabilis na tree generation kahit sa malalaking projects
+- **Smart** - Awtomatikong respects `.gitignore` patterns
+- **Flexible** - Maraming command-line options para sa customization
+
+### Gumagamit ng
+
+```
+Python 3.8+  |  Walang external libraries
+```
 
 ---
 
 ## Mga Katangian
 
-* Recursive directory tree generation
-* Markdown output
-* Suporta sa `.gitignore`
-* Karagdagang ignore list mula sa command line
-* Maaaring isama o ibukod ang output file sa nabuong tree
-* Kusang paglikha ng output directory kung kinakailangan
-* Portable at walang external dependencies
-* Gumagana sa anumang Python 3 environment
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Recursive tree generation | ✓ | Suportado ang buong depth |
+| Markdown output | ✓ | HTML-compatible format |
+| `.gitignore` support | ✓ | Auto-loaded from project root |
+| Custom ignore rules | ✓ | Via command-line flags |
+| Output filtering | ✓ | Exclude o include ang generated file |
+| Auto directory creation | ✓ | Lumilikha ng output folders kung needed |
+| Windows batch wrapper | ✓ | `dirstructgen.cmd` para sa convenience |
+| Help system | ✓ | `dirstructgen ?` o `--help` |
 
 ---
 
-## Mga Kinakailangan
+## Installation & Setup
 
-* Python 3.8 o mas bago
+### Walang setup na required!
 
-Suriin ang bersyon:
+Patakbuhin lang nang direkta:
 
 ```bash
-python --version
+# Option 1: Direct Python (lahat ng platforms)
+python tools/dirstructgen/dirstructgen.py
+
+# Option 2: Windows batch (mas convenient)
+dirstructgen.cmd
+
+# Option 3: Add to PATH para sa global access
+# (opsyonal lamang)
 ```
 
 ---
 
-## Pag-install
+## Paggamit
 
-Walang kinakailangang pag-install.
+### Pangunahing Command Structure
 
-Patakbuhin lamang ang script:
+```bash
+dirstructgen [OPTIONS]
+```
+
+### Available Options
+
+```
+POSITIONAL / FLAGS:
+
+  ?                    Ipakita ang help message
+
+OPTIONS:
+
+  -p, --path DIR       Target directory (default: .)
+  -o, --output FILE    Output markdown file (default: DIREKTORYO.md)
+  -i, --ignore LIST    Additional ignore patterns (space-separated)
+  -t, --title TEXT     Custom title para sa markdown
+  --no-gitignore       Huwag basahin ang .gitignore
+  --include-output     Isama ang output file sa generated tree
+  -v, --version        Show version information
+```
+
+---
+
+## Mga Halimbawa
+
+### 1. Default - Simple Generate
 
 ```bash
 python tools/dirstructgen/dirstructgen.py
 ```
 
----
-
-## Pangunahing Paggamit
-
-### Default
-
-```bash
-python tools/dirstructgen/dirstructgen.py
-```
-
-Lilikha ng:
-
-```text
-TREE.md
-```
-
-sa kasalukuyang direktoryo.
+**Resulta:** `DIREKTORYO.md` sa kasalukuyang folder
 
 ---
 
-### Tukoy na Direktoryo
+### 2. Target Specific Directory
 
 ```bash
-python tools/dirstructgen/dirstructgen.py -p LNDH
+python tools/dirstructgen/dirstructgen.py -p src/
 ```
+
+**Resulta:** Tree ng `src/` directory
 
 ---
 
-### Tukoy na Output File
+### 3. Custom Output File
 
 ```bash
-python tools/dirstructgen/dirstructgen.py -o docs/TREE.md
+python tools/dirstructgen/dirstructgen.py -o docs/PROJECT_STRUCTURE.md
 ```
+
+**Resulta:** Output sa `docs/PROJECT_STRUCTURE.md`
 
 ---
 
-### Custom na Pamagat
+### 4. Custom Title
 
 ```bash
-python tools/dirstructgen/dirstructgen.py \
-    -t "Estruktura ng Proyekto"
+python tools/dirstructgen/dirstructgen.py -t "LNDH Project Layout"
 ```
+
+**Resulta:** Markdown file na may custom title
 
 ---
 
-### Karagdagang Ignore Entries
+### 5. Additional Ignore Patterns
 
 ```bash
-python tools/dirstructgen/dirstructgen.py \
-    -i logs cache temp
+python tools/dirstructgen/dirstructgen.py -i __pycache__ .venv build dist
 ```
+
+**Resulta:** Excluded ang specified folders
 
 ---
 
-### Huwag Basahin ang `.gitignore`
+### 6. Ignore .gitignore
 
 ```bash
-python tools/dirstructgen/dirstructgen.py \
-    --no-gitignore
+python tools/dirstructgen/dirstructgen.py --no-gitignore
 ```
+
+**Resulta:** Walang .gitignore rules, lahat ay isina-scan
 
 ---
 
-### Isama ang Output File
+### 7. Include Output File sa Tree
 
 ```bash
-python tools/dirstructgen/dirstructgen.py \
-    -o docs/TREE.md \
-    --include-output
+python tools/dirstructgen/dirstructgen.py -o docs/TREE.md --include-output
 ```
 
-Halimbawa:
-
-```text
+**Resulta:** 
+```
 docs/
-└── TREE.md
+├── TREE.md
+└── other_files/
 ```
 
 ---
 
-### Tulong
+### 8. Get Help
 
 ```bash
 python tools/dirstructgen/dirstructgen.py ?
+python tools/dirstructgen/dirstructgen.py --help
 ```
 
 ---
 
-## Prayoridad ng Ignore Rules
+## Architecture
 
-Kapag bumubuo ng tree, ginagamit ang sumusunod na pagkakasunod-sunod:
+### Project Structure
 
-1. `.gitignore`
-2. `DEFAULT_IGNORE`
-3. `--ignore`
+```
+tools/dirstructgen/
+├── dirstructgen.py          Main script - tree generation logic
+├── dirstructgen_help.py     Help system module
+├── dirstructgen_version.py  Version information
+├── dirstructgen.cmd         Windows batch wrapper
+└── README                   This file
+```
+
+### Code Organization
+
+| File | Purpose |
+|------|---------|
+| **dirstructgen.py** | Core application - argument parsing, ignore logic, tree walker |
+| **dirstructgen_help.py** | Help text formatting at display |
+| **dirstructgen_version.py** | Version metadata |
+| **dirstructgen.cmd** | Windows convenience wrapper |
+
+### Execution Flow
+
+```
+User Input
+    ↓
+Parse Arguments (argparse)
+    ↓
+Load .gitignore (if enabled)
+    ↓
+Build Ignore Set (union of sources)
+    ↓
+Walk Directory Tree (recursive)
+    ↓
+Filter Entries (check ignore set)
+    ↓
+Generate Tree Lines
+    ↓
+Write Markdown File
+    ↓
+Done ✓
+```
 
 ---
 
-## Halimbawa ng Output
+## Ignore Rules Priority
 
-````markdown
-# Project Structure
+Kapag bumubuo ng tree, ang tool ay sumusunod sa priority order:
 
-```text
-MyProject/
-├── docs
-│   └── TREE.md
-├── include
-├── src
-│   └── main.cpp
-└── platformio.ini
+### Priority Levels
+
 ```
-````
+1. .gitignore         (Highest priority - project level)
+2. DEFAULT_IGNORE     (Built-in safe defaults)
+3. --ignore CLI flag  (User-specified via command line)
+4. Output filename    (Automatically excluded unless --include-output)
+```
+
+### Example
+
+Kung mayroon:
+- `.gitignore` na may `node_modules`
+- `DEFAULT_IGNORE` na may `.git`
+- CLI flag: `-i build dist`
+
+**Resulta:** Lahat ng tatlong sets ay isasama sa final ignore set.
 
 ---
 
-## Estruktura ng Tool
+## Output Format
 
-```text
-tools/
-└── dirstructgen/
-    ├── dirstructgen.py
-    └── README.md
+### Generated Markdown Structure
+
+```markdown
+# Directory Structure
+
+\`\`\`text
+ProjectRoot/
+├── docs/
+│   ├── README.md
+│   └── guides/
+├── include/
+│   ├── header1.h
+│   └── header2.h
+├── src/
+│   ├── main.cpp
+│   └── utils.cpp
+├── test/
+│   └── test.cpp
+├── platformio.ini
+└── .gitignore
+\`\`\`
+```
+
+### File Tree Symbols
+
+```
+├──  Regular branch connector
+└──  Last item connector
+│    Vertical line continuation
+    Indent (4 spaces)
 ```
 
 ---
 
-## Mga Kilalang Limitasyon
+## Common Use Cases
 
-Sa kasalukuyang bersyon, ang `.gitignore` parser ay simple lamang.
+### 1. Project Documentation
 
-Sinusuportahan nito ang mga karaniwang entry gaya ng:
-
-```gitignore
-.pio
-build
-cache
+```bash
+python dirstructgen.py -p . -o docs/STRUCTURE.md -t "Project Organization"
 ```
 
-Hindi pa ganap na sinusuportahan ang mas komplikadong pattern tulad ng:
+---
 
-```gitignore
-*.log
-**/cache
-!important.log
+### 2. Code Review Context
+
+```bash
+python dirstructgen.py -p src/ -o REVIEW_CONTEXT.md
 ```
 
-Maaaring idagdag ito sa mga susunod na bersyon.
+---
+
+### 3. Repository Analysis
+
+```bash
+python dirstructgen.py --no-gitignore -o FULL_TREE.md
+```
+
+Makikita lahat ng files kahit ignore sila normally.
+
+---
+
+### 4. Multiple Projects
+
+```bash
+python dirstructgen.py -p ../project_a -o docs/project_a_structure.md
+python dirstructgen.py -p ../project_b -o docs/project_b_structure.md
+```
+
+---
+
+## Known Limitations
+
+### Current Version (0.1.x)
+
+#### Gitignore Parser
+
+**Supported:**
+- Simple filename/directory names: `node_modules`, `build`, `.env`
+- Mixed patterns: `.pio`, `cache`, `temp`
+
+**Not Yet Supported:**
+- Wildcard patterns: `*.log`, `*.tmp`
+- Glob patterns: `**/node_modules`, `src/**/*.test.js`
+- Negation patterns: `!important.log`
+- Advanced rules: `*.txt | !keep.txt`
+
+#### Other Limitations
+
+- No sorting by file type
+- No file size statistics
+- Single level title only
+- No custom styling/colors
+- Only Markdown output (v0.1.x)
 
 ---
 
 ## Roadmap
 
-### v0.2.x -- *(plano)*
+### v0.2.0 (Planned - Next Phase)
 
-* Depth limiting
-* File at folder statistics
-* TXT output
-* JSON output
-* Advanced `.gitignore` pattern support
-* Configuration file support
-* CI integration
-* Automated documentation workflows
+- [ ] Depth limiting with `--max-depth N`
+- [ ] File count statistics
+- [ ] JSON output format
+- [ ] TXT output format
+- [ ] Basic wildcard support in `.gitignore`
+- [ ] Configuration file (`.dirstructgenrc`)
+- [ ] File size display
+- [ ] Colored output (optional)
+
+### v0.3.0+ (Future Ideas)
+
+- [ ] Interactive selection of directories
+- [ ] Web UI preview
+- [ ] Performance: parallel scanning
+- [ ] Template system
+- [ ] Integration with CI/CD pipelines
+- [ ] API/Library mode
 
 ---
 
-## Lisensya
+## Troubleshooting
 
-Malayang gamitin, baguhin, at paunlarin para sa personal, akademiko, at pang-inhinyeriyang mga proyekto.
+### Issue: "Python not found"
+
+**Solution:** Make sure Python 3.8+ is installed and in PATH
+
+```bash
+python --version
+```
+
+### Issue: Permission denied
+
+**Solution:** Check file permissions sa output directory
+
+```bash
+# Linux/macOS
+chmod +x dirstructgen.py
+```
+
+### Issue: `.gitignore` not being respected
+
+**Solution:** Verify .gitignore location (must be sa target directory root)
+
+```bash
+python dirstructgen.py --no-gitignore  # Test without .gitignore
+```
+
+### Issue: Output file appears sa tree
+
+**Solution:** Use `--include-output` flag kung gusto mong isama, o wala kung exclude
+
+```bash
+python dirstructgen.py --include-output
+```
 
 ---
 
-## May-akda
+## License
 
-Lakan Haraya Dima -->
+**Open Source** - Libre na gamitin, i-modify, at i-distribute para sa:
+- Personal projects
+- Academic work
+- Commercial applications
+- Educational purposes
 
-### Isinasaayos
+Walang restrictions sa usage.
 
-Isaayos ang README batay sa kasalukuyang anyo ng `dirstructgen/` folder
+---
+
+## Author
+
+**Lakan Haraya Dima**
+
+---
+
+## Contributing
+
+Suggestions, bug reports, at improvements ay welcome! Feel free to:
+
+1. Test ang tool sa different projects
+2. Report issues o edge cases
+3. Suggest new features
+4. Contribute improvements
+
+---
+
+## Version History
+
+### v0.1.0 (Current)
+
+- Initial release
+- Core tree generation
+- `.gitignore` support
+- CLI options
+- Help system
+- Windows batch wrapper
+
+---
+
+## Support
+
+Para sa questions o feedback, makipag-ugnayan sa author o magpa-file ng issue sa project repository.
