@@ -20,14 +20,14 @@ Awtomatikong lilikha ng `DIREKTORYO.md` sa current directory.
 
 ---
 
-## Tungkol sa Tool
+## Tungkol sa Kasangkapang Ito
 
-**DirStructGen** ay lightweight command-line utility na nagge-generate ng hierarchical directory structure sa Markdown. Idinisenyo para maging:
+Ang **DirStructGen** ay lightweight command-line utility na lumilikha ng hierarchical directory structure sa Markdown. Idinisenyo para maging:
 
-- **Simple** - Zero dependencies, walang configuration needed
-- **Fast** - Mabilis na tree generation kahit sa malalaking projects
-- **Smart** - Awtomatikong respects `.gitignore` patterns
-- **Flexible** - Maraming command-line options para sa customization
+- **Simple** - Zero dependencies, walang kinakailangang configuration
+- **Mabilis** - Mabilis na tree generation kahit sa malalaking projects
+- **Matalino** - Awtomatikong nirerespeto ang `.gitignore` patterns
+- **Fleksibol** - Sapat na command-line options para sa pagpapasadya
 
 ### Gumagamit ng
 
@@ -41,11 +41,11 @@ Python 3.8+  |  Walang external libraries
 
 | Feature | Status | Notes |
 |---------|--------|-------|
-| Recursive tree generation | ✓ | Suportado ang buong depth |
+| Recursive tree generation | ✓ | Suportado ang buong lalim |
 | Markdown output | ✓ | HTML-compatible format |
 | `.gitignore` support | ✓ | Auto-loaded from project root |
 | Custom ignore rules | ✓ | Via command-line flags |
-| Output filtering | ✓ | Exclude o include ang generated file |
+| Output filtering | ✓ | Mag-exclude o mag-include ng generated file |
 | Auto directory creation | ✓ | Lumilikha ng output folders kung needed |
 | Windows batch wrapper | ✓ | `dirstructgen.cmd` para sa convenience |
 | Help system | ✓ | `dirstructgen ?` o `--help` |
@@ -59,14 +59,14 @@ Python 3.8+  |  Walang external libraries
 Patakbuhin lang nang direkta:
 
 ```bash
-# Option 1: Direct Python (lahat ng platforms)
+# Opsiyon 1: Direktang Python (lahat ng platforms)
 python tools/dirstructgen/dirstructgen.py
 
-# Option 2: Windows batch (mas convenient)
+# Opsiyon 2: Windows batch (mas convenient)
 dirstructgen.cmd
 
-# Option 3: Add to PATH para sa global access
-# (opsyonal lamang)
+# Opsiyon 3: Idagdag sa PATH para sa global access
+# (opsiyonal lamang)
 ```
 
 ---
@@ -78,6 +78,10 @@ dirstructgen.cmd
 ```bash
 dirstructgen [OPTIONS]
 ```
+o kaya
+```bash
+python tools\dirstructgen\dirstructgen.py [OPTIONS]
+```
 
 ### Available Options
 
@@ -88,7 +92,7 @@ POSITIONAL / FLAGS:
 
 OPTIONS:
 
-  -p, --path DIR       Target directory (default: .)
+  -p, --path DIR       Target directory na susuriin (default: .)
   -o, --output FILE    Output markdown file (default: DIREKTORYO.md)
   -i, --ignore LIST    Additional ignore patterns (space-separated)
   -t, --title TEXT     Custom title para sa markdown
@@ -157,7 +161,7 @@ python tools/dirstructgen/dirstructgen.py -i __pycache__ .venv build dist
 python tools/dirstructgen/dirstructgen.py --no-gitignore
 ```
 
-**Resulta:** Walang .gitignore rules, lahat ay isina-scan
+**Resulta:** Walang .gitignore rules, lahat ng nilalaman sa direktoryo ay ini-scan
 
 ---
 
@@ -185,7 +189,7 @@ python tools/dirstructgen/dirstructgen.py --help
 
 ---
 
-## Architecture
+## Arkitektura
 
 ### Project Structure
 
@@ -231,7 +235,7 @@ Done ✓
 
 ---
 
-## Ignore Rules Priority
+## Priyoridad sa Ignore Rules
 
 Kapag bumubuo ng tree, ang tool ay sumusunod sa priority order:
 
@@ -244,7 +248,7 @@ Kapag bumubuo ng tree, ang tool ay sumusunod sa priority order:
 4. Output filename    (Automatically excluded unless --include-output)
 ```
 
-### Example
+### Halimbawa
 
 Kung mayroon:
 - `.gitignore` na may `node_modules`
@@ -257,7 +261,7 @@ Kung mayroon:
 
 ## Output Format
 
-### Generated Markdown Structure
+### Nalikhang Estruktura sa Markdown
 
 ```markdown
 # Directory Structure
@@ -280,96 +284,109 @@ ProjectRoot/
 \`\`\`
 ```
 
-### File Tree Symbols
+### Mga Sagisag sa Talatagan
 
 ```
 ├──  Regular branch connector
 └──  Last item connector
 │    Vertical line continuation
-    Indent (4 spaces)
+     Indent (4 spaces)
 ```
 
 ---
 
-## Common Use Cases
+## Mga Karaniwang Kaso ng Paggamit
 
-### 1. Project Documentation
+### 1. Dokumentasyon ng Proyekto
 
 ```bash
 python dirstructgen.py -p . -o docs/STRUCTURE.md -t "Project Organization"
 ```
+* Susuriin magmula sa kasalukuyang direktoryo `.`  
+* Lilikha ng output file sa direktoryong `docs/STRUCTURE.md`  
+* Papamagatan ang loob ng nilalaman ng file sa `"Project Organization"`
 
 ---
 
-### 2. Code Review Context
+### 2. Konteksto sa Pagribyu ng Kodigo
 
 ```bash
 python dirstructgen.py -p src/ -o REVIEW_CONTEXT.md
 ```
+* Susuriin magmula sa direktoryo ng `src/`  
+* Lilikha sa kasalukuyang folder ng output file na `REVIEW_CONTEXT.md`  
 
 ---
 
-### 3. Repository Analysis
+### 3. Pagsusuri sa Repositoryo
 
 ```bash
 python dirstructgen.py --no-gitignore -o FULL_TREE.md
 ```
 
-Makikita lahat ng files kahit ignore sila normally.
+Makikita lahat ng files kahit ignore sila normally.  
+* Susuriin magmula sa kasalukuyang direktoryo `.` at babasahin ang lahat ng files nang hindi ikinokonsidera ang nilalaman ng `.gitignore` 
+* Lilikha sa kasalukuyang direktoryo ng output file na `FULL_TREE.md`  
 
 ---
 
-### 4. Multiple Projects
-
+### 4. Maramihang Proyekto
 ```bash
 python dirstructgen.py -p ../project_a -o docs/project_a_structure.md
+```
+* Susuriin magmula sa direktoryong `../project_a`
+* Lilikha ng output file sa direktoryong `docs/project_a_structure.md`  
+
+```bash
 python dirstructgen.py -p ../project_b -o docs/project_b_structure.md
 ```
+* Susuriin magmula sa direktoryong `../project_b`
+* Lilikha ng output file sa direktoryong `docs/project_b_structure.md`  
 
 ---
 
-## Known Limitations
+## Mga Limitasyong Nalalaman
 
-### Current Version (0.1.x)
+### Kasalukuyang Bersiyon (0.1.x)
 
 #### Gitignore Parser
 
-**Supported:**
-- Simple filename/directory names: `node_modules`, `build`, `.env`
-- Mixed patterns: `.pio`, `cache`, `temp`
+**Suportado:**
+- Simpleng filename/directory names: `node_modules`, `build`, `.env`
+- Magkahalong patterns: `.pio`, `cache`, `temp`
 
-**Not Yet Supported:**
+**Hindi pa Suportado:**
 - Wildcard patterns: `*.log`, `*.tmp`
 - Glob patterns: `**/node_modules`, `src/**/*.test.js`
 - Negation patterns: `!important.log`
 - Advanced rules: `*.txt | !keep.txt`
 
-#### Other Limitations
+#### Iba pang Limitasyon
 
-- No sorting by file type
-- No file size statistics
-- Single level title only
-- No custom styling/colors
-- Only Markdown output (v0.1.x)
+- Walang sorting by file type
+- Walang file size statistics
+- Singleng level title lamang
+- Walang pasadyang styling/colors
+- Tanging markdown output lamang (v0.1.x)
 
 ---
 
-## Roadmap
+## Mapa ng Pauswagan
 
-### v0.2.0 (Planned - Next Phase)
+### v0.2.0 (Pinaplano - Susunod na Yugto)
 
-- [ ] Depth limiting with `--max-depth N`
-- [ ] File count statistics
+- [ ] Paglilimita ng lalim gamit ang `--max-depth N`
+- [ ] Estadistika sa dami ng files
 - [ ] JSON output format
 - [ ] TXT output format
-- [ ] Basic wildcard support in `.gitignore`
+- [ ] Batayang suporta sa wildcard sa `.gitignore`
 - [ ] Configuration file (`.dirstructgenrc`)
 - [ ] File size display
-- [ ] Colored output (optional)
+- [ ] Kinulayang output (opsiyonal)
 
-### v0.3.0+ (Future Ideas)
+### v0.X.0+ (Ideya sa Hinaharap)
 
-- [ ] Interactive selection of directories
+- [ ] Interactive selection ng mga direktoryo
 - [ ] Web UI preview
 - [ ] Performance: parallel scanning
 - [ ] Template system
@@ -378,36 +395,36 @@ python dirstructgen.py -p ../project_b -o docs/project_b_structure.md
 
 ---
 
-## Troubleshooting
+## Paglutas ng Problema
 
-### Issue: "Python not found"
+### Isyu: "Python not found"
 
-**Solution:** Make sure Python 3.8+ is installed and in PATH
+**Solusyon:** Tiyakin na ang Python 3.8+ ay nakainstal at nasa PATH
 
 ```bash
 python --version
 ```
 
-### Issue: Permission denied
+### Isyu: Permission denied
 
-**Solution:** Check file permissions sa output directory
+**Solusyon:** Itsek ang file permissions sa output directory
 
 ```bash
 # Linux/macOS
 chmod +x dirstructgen.py
 ```
 
-### Issue: `.gitignore` not being respected
+### Isyu: Ang `.gitignore` ay hindi ikinonsidera
 
-**Solution:** Verify .gitignore location (must be sa target directory root)
+**Solusyon:** Beripikahin ang lokasyon ng `.gitignore` (dapat nasa target directory root)
 
 ```bash
-python dirstructgen.py --no-gitignore  # Test without .gitignore
+python dirstructgen.py --no-gitignore  # Subukin nang walang .gitignore
 ```
 
-### Issue: Output file appears sa tree
+### Isyue: Ang output file ay lumitaw sa talatagan
 
-**Solution:** Use `--include-output` flag kung gusto mong isama, o wala kung exclude
+**Solusyon:** Gumamit ng `--include-output` flag kung gusto mong isama, o wala kung exclude
 
 ```bash
 python dirstructgen.py --include-output
@@ -415,48 +432,48 @@ python dirstructgen.py --include-output
 
 ---
 
-## License
+## Lisensiya
 
-**Open Source** - Libre na gamitin, i-modify, at i-distribute para sa:
-- Personal projects
-- Academic work
-- Commercial applications
-- Educational purposes
+**Open Source** - Libreng gamitin, baguhin, at ipamahagi para sa:
+- Personal na proyekto
+- Gawaing akademiko
+- Komersiyal na aplikasyon
+- Layuning pang-edukasyon
 
-Walang restrictions sa usage.
+Walang paghihigpit sa paggamit.
 
 ---
 
-## Author
+## May-akda
 
 **Lakan Haraya Dima**
 
 ---
 
-## Contributing
+## Pag-aambag
 
-Suggestions, bug reports, at improvements ay welcome! Feel free to:
+Ang mga mungkahi, bug reports, at pagpapahusay ay hinihikayat! Malayang kayong:
 
-1. Test ang tool sa different projects
-2. Report issues o edge cases
-3. Suggest new features
-4. Contribute improvements
+1. Subukin ang tool sa iba't ibang proyekto
+2. Magsumbong ng mga isyu o edge cases
+3. Magmungkahi ng mga bagong katangian
+4. Mag-ambag sa pagpapahusay
 
 ---
 
-## Version History
+## Kasaysayan ng Bersiyon
 
-### v0.1.0 (Current)
+### v0.1.0 (Kasalukuyan)
 
-- Initial release
-- Core tree generation
-- `.gitignore` support
-- CLI options
-- Help system
+- Inisyal na nilantad
+- Puso ng paglikha ng talatagan
+- Suporta sa `.gitignore`
+- Mga opsiyon sa CLI
+- Sistema ng tulong
 - Windows batch wrapper
 
 ---
 
-## Support
+## Suporta
 
-Para sa questions o feedback, makipag-ugnayan sa author o magpa-file ng issue sa project repository.
+Para sa katanungan o pidbak, makipag-ugnayan sa may-akda o mag-file ng isyu sa project repository.
