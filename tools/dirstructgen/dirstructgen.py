@@ -5,7 +5,7 @@ import sys
 # =========================
 # HELP SYSTEM
 # =========================
-from dirstructgen_help import print_help
+from dirstructgen_help import print_context_help, print_help, print_quick_help
 from dirstructgen_version import print_version
 
 # =========================
@@ -114,13 +114,20 @@ def save_markdown(tree_lines, output_file, title):
 # =========================
 def main():
 
-    # ? HELP TRIGGER
     if len(sys.argv) > 1 and sys.argv[1] == "?":
-        print_help()
+        print_quick_help()
+        return
+
+    if len(sys.argv) > 1 and (sys.argv[1] == "--help" or sys.argv[1] == "-h"):
+        if len(sys.argv) > 2:
+            print_help(sys.argv[2], sys.argv)
+        else:
+            print_help(None, sys.argv)
         return
 
     parser = argparse.ArgumentParser(
         description="Matalinong tagalatag ng estruktura ng direktoryo sa Markdown (suporta .gitignore)",
+        add_help=False,
     )
 
     parser.add_argument("-p", "--path", default=".", help="Root folder na iguguhit (default: kasalukuyang folder)")
@@ -177,6 +184,9 @@ def main():
     # =========================
     # GENERATE OUTPUT
     # =========================
+
+    if len(sys.argv) > 1:
+        print_context_help(sys.argv)
 
     tree = generate_tree(args.path, final_ignore)
 

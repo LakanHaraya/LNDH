@@ -436,7 +436,7 @@ python dirstructgen.py -p ../project_b -o docs/project_b_structure.md
 - [ ] File size display
 - [ ] Kinulayang output (opsiyonal)
 
-### v0.X.0+ (Ideya sa Hinaharap)
+### v0.x.0+ (Ideya sa Hinaharap)
 
 - [ ] Interactive selection ng mga direktoryo
 - [ ] Web UI preview
