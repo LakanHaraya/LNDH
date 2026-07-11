@@ -9,7 +9,15 @@ LNDH/
 │   └── launch.json
 ├── TOBECONTINUED.md
 ├── docs
-│   ├── DIREKTORYO.md
+│   ├── ARCHITECTURE.md
+│   ├── SKLB
+│   │   └── DESIGN_PROPOSAL_v0.1.md
+│   ├── UML
+│   │   ├── diagrams
+│   │   │   └── components.puml
+│   │   ├── generated
+│   │   └── theme
+│   │       └── dark-theme.puml
 │   └── gabay
 │       ├── README.md
 │       ├── commands-git.md
@@ -17,16 +25,12 @@ LNDH/
 │       ├── workflow-git.md
 │       └── workflow-terminal.md
 ├── include
-│   ├── README
-│   ├── lndh_core.h
-│   └── lndh_packet.h
+│   └── README
 ├── lib
-│   ├── README
-│   └── lndh_comm
-│       ├── comm_interface.h
-│       ├── comm_manager.cpp
-│       └── comm_manager.h
+│   └── README
 ├── platformio.ini
+├── scripts
+│   └── export-diagrams.sh
 ├── src
 │   ├── LH_KL
 │   │   └── main.cpp
@@ -40,10 +44,11 @@ LNDH/
 │   ├── README
 │   └── test.cpp
 └── tools
-    └── dirstructgen
-        ├── README
-        ├── dirstructgen.cmd
-        ├── dirstructgen.py
-        ├── dirstructgen_help.py
-        └── dirstructgen_version.py
+    ├── dirstructgen
+    │   ├── README.md
+    │   ├── dirstructgen.cmd
+    │   ├── dirstructgen.py
+    │   ├── dirstructgen_help.py
+    │   └── dirstructgen_version.py
+    └── plantuml.jar
 ```

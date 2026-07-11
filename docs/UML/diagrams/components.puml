@@ -1,0 +1,23 @@
+@startuml Component-Diagram
+
+!include ../theme/dark-theme.puml
+
+title LNDH System — Mga Hugpong
+
+package "LNDH System" as LNDH {
+
+    [dron\n(Airship Drone)] as dron
+    [tatangnan\n(Remote Controller)] as tatangnan
+    [daungan\n(Docking Base)] as daungan
+    [himpilan\n(Ground Control Station)] as himpilan
+
+}
+
+note bottom of LNDH
+    Ang bawat hugpong ay
+    maaaring magkaroon
+    ng sariling sesyon
+    ng SKLB.
+end note
+
+@enduml
