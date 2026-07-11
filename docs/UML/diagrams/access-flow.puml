@@ -1,0 +1,33 @@
+@startuml User-Access-Flow
+
+!include ../theme/dark-theme.puml
+
+title Daloy ng Pag-akses \n (Access Flow)
+
+state Salig
+state Balana
+state Malim
+state Bahala
+
+[*] --> Salig
+Salig --> Balana
+Balana --> Bahala : awtentikasyon
+Balana --> Malim : awtentikasyon
+Malim --> Balana
+Bahala --> Balana
+
+note right of Salig
+    Root Context
+        - system recovery,
+        - low-level maintenance,
+        - boot env,
+        - emergency adminsitration
+end note
+
+note right of Balana
+    Karaniwang entry point
+        - pagmamanman,
+        - pagtingin ng impormasyon
+end note
+
+@enduml

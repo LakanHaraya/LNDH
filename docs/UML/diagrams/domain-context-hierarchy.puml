@@ -1,0 +1,24 @@
+@startmindmap Domain-and-Context-Hierarchy
+
+title Herarkiya ng Dominyo at Konteksto \n (Domain and Context Hierarchy)
+
+!include ../theme/dark-theme.puml
+
+*[#21262D] SKLB
+**[#21262D] Salig
+***[#30363D] kumpig
+***[#30363D] ...
+
+**[#21262D] Bahala
+***[#30363D] kumpig
+***[#30363D] ...
+
+**[#21262D] Malim 
+***[#30363D] suri
+***[#30363D] ...
+
+**[#21262D] Balana 
+***[#30363D] masid
+***[#30363D] ...
+
+@endmindmap

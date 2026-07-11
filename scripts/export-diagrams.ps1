@@ -4,18 +4,20 @@ $PlantUML = Join-Path $Root "tools\plantuml.jar"
 $InputDir = Join-Path $Root "docs\UML\diagrams"
 $OutputDir = Join-Path $Root "docs\UML\generated"
 
-Write-Host "LNDH UML Generator"
-Write-Host "------------------"
-Write-Host "Root: $Root"
-Write-Host "PlantUML: $PlantUML"
-Write-Host "Input: $InputDir"
-Write-Host "Output: $OutputDir"
+Write-Host "+-------------------------------------------------------+"
+Write-Host "|            TAGAPAGLUWAS NG MGA DAYAGRAM               |"
+Write-Host "+-------------------------------------------------------+"
+# Write-Host "Puno        : $Root"
+# Write-Host "PlantUML    : $PlantUML"
+# Write-Host "Ipapasok    : $InputDir"
+# Write-Host "Ilalabas    : $OutputDir"
+# Write-Host " "
 
 New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 
 Get-ChildItem $InputDir -Filter *.puml | ForEach-Object {
 
-    Write-Host "Generating $($_.Name)..."
+    Write-Host "    Nililikha ang $($_.Name)..."
 
     java -jar $PlantUML `
         -tsvg `
@@ -23,5 +25,6 @@ Get-ChildItem $InputDir -Filter *.puml | ForEach-Object {
         $_.FullName
 }
 
-Write-Host "------------------"
-Write-Host "UML generation complete."
+Write-Host "+-------------------------------------------------------+"
+Write-Host "|        Natapos ang pagluwas ng mga dayagram!          |"
+Write-Host "+-------------------------------------------------------+"

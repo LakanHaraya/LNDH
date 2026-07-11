@@ -14,9 +14,17 @@ skinparam ComponentBackgroundColor #21262D
 skinparam ComponentBorderColor #58A6FF
 skinparam ComponentFontColor #C9D1D9
 
+skinparam stateBackgroundColor #161B22
+skinparam stateBorderColor #58A6FF
+skinparam stateFontColor #C9D1D9
+
 skinparam NoteBackgroundColor #30363D
 skinparam NoteBorderColor #FFFFFF
 skinparam NoteFontColor #C9D1D9
+
+skinparam mindmapBackgroundColor #161B22
+skinparam mindmapBorderColor #58A6FF
+skinparam mindmapFontColor #C9D1D9
 
 skinparam ArrowColor #FFFFFF
 skinparam LineColor #FFFFFF
