@@ -14,7 +14,7 @@ Layunin:
 
 ## Mga Natapos
 
-### System Roles
+### System Nodes
 
 | Code | Unit                         | Role                                      |
 | ---- | ---------------------------- | ----------------------------------------- |
@@ -41,7 +41,7 @@ Ibig sabihin:
 
 ---
 
-### Mga Nagawa nang Files
+<!-- ### Mga Nagawa nang Files
 
 ```txt
 include/
@@ -53,7 +53,7 @@ lib/
     ├── comm_interface.h
     ├── comm_manager.h
     └── comm_manager.cpp
-```
+``` -->
 
 ---
 
