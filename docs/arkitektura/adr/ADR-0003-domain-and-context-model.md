@@ -1,116 +1,159 @@
-# ADR-0003 — Domain and Context Model
+# ADR-0003 — Domain at Context Model
 
-[**NAKABINBING KATANUNGAN**](#open-design-questions)  
-**Estado:** Draft    
+**Estado:** Tinanggap (Accepted)  
 **Petsa:** 2026-07-19  
 **Proyekto:** LNDH-SKLB (Saklob Command Operating Environment)
 
+---
+
 ## Konteksto
 
-Matapos maitatag sa **ADR-0001** ang *Salig* bilang Root Command Environment at *Session Manager*, at sa **ADR-0002** ang opisyal na *Session Identity at Prompt Grammar*, kinakailangan namang tukuyin ang lohikal na organisasyon ng command operating environment.
+Matapos maitatag sa **ADR-0001** ang *Salig* bilang Root Command Environment at Session Manager, at sa **ADR-0002** ang Session Identity at Prompt Grammar, kinakailangang itatag ang lohikal na organisasyon ng command operating environment.
 
-Habang lumalawak ang kakayahan ng SKLB, inaasahang dadami ang mga command, subsystem, at workflow. Kung walang malinaw na modelo ng organisasyon, maaaring magkaroon ng hindi magkakatugmang command hierarchy, magkakahalong responsibilidad ng mga user mode, at hindi pare-parehong paglipat sa pagitan ng iba't ibang bahagi ng sistema.
+Habang lumalawak ang kakayahan ng SKLB, inaasahang darami ang mga subsystem, command, at workflow ng bawat node sa loob ng ekosistemang LNDH. Kinakailangan ng isang pare-pareho, malinaw, at napapalawak na modelo upang maorganisa ang mga operasyong ito nang hindi nakatali sa isang partikular na implementasyon.
 
-Dahil dito, kinakailangang magtakda ng isang pangkalahatang modelo para sa **Domain** at **Context** na magiging batayan ng pag-oorganisa ng lahat ng command at operational workflow ng SKLB.
+Ang dokumentong ito ang nagtatatag ng opisyal na lohikal na modelo ng Domain at Context ng SKLB, kabilang ang kanilang ugnayan sa Session, Node, Navigation, at Configuration Workspace.
+
+---
 
 ## Suliranin
 
-Kinakailangang magtakda ng isang lohikal na estruktura na:
+Kinakailangang magkaroon ng isang lohikal na modelo na:
 
-* naghihiwalay sa pangunahing tungkulin (*operational responsibility*) at pansamantalang pokus (*operational focus*);
-* nananatiling simple at madaling maunawaan ng gumagamit;
-* madaling palawakin habang lumalaki ang SKLB;
-* umaayon sa command navigation na ginagamit sa mga sistemang tulad ng Cisco IOS nang hindi kinakailangang gayahin ang eksaktong implementasyon nito.
+* naghihiwalay sa **operational responsibility** at **operational focus**;
+* nagbibigay ng pare-parehong command navigation sa lahat ng node;
+* nananatiling simple ngunit madaling mapalawak;
+* nagsisilbing pundasyon ng command language at command parser ng SKLB.
 
-Kung walang malinaw na paghihiwalay ng Domain at Context, maaaring maging magulo ang command hierarchy, magkaroon ng magkakaparehong functionality sa iba't ibang bahagi ng sistema, at maging mahirap ang pagpapanatili ng command language sa paglipas ng panahon.
+---
 
 ## Desisyon
 
-Napagpasyahang gamitin ang sumusunod na konseptuwal na modelo sa SKLB.
+Ang mga sumusunod na subseksiyon ang nagtatakda ng mga pangunahing konsepto, ugnayan, at panuntunang bumubuo sa opisyal na Domain at Context Model ng SKLB.
 
 ### Domain
 
-Ang **Domain** ang pangunahing yunit ng organisasyon ng command operating environment.
+Ang **Domain** ang pangunahing lohikal na kapaligiran ng operasyon (*logical operational environment*) sa loob ng isang Session.
 
-Ito ay isang lohikal na kapaligiran ng operasyon na kumakatawan sa isang natatanging tungkulin o responsibilidad sa loob ng SKLB. Ang bawat Domain ay maaaring magkaroon ng sariling hanay ng mga command, operational workflow, at mga Context.
+Ito ang kumakatawan sa **operational responsibility** ng gumagamit at nagtatakda ng saklaw ng mga operasyong pinahihintulutan, mga command na maaaring gamitin, at pangkalahatang workflow ng kasalukuyang session.
 
-Ang paglipat sa ibang Domain ay nangangahulugan ng paglipat sa ibang operational responsibility.
+Sa bawat Session, iisa lamang ang maaaring maging aktibong Domain.
+
 
 ### Context
 
-Ang **Context** ay isang espesyalisadong estado sa loob ng kasalukuyang Domain.
+Ang **Context** ay isang espesyalisadong **operational focus** sa loob ng kasalukuyang Domain.
 
-Hindi ito bumubuo ng panibagong Domain. Sa halip, ginagamit ito upang ituon ang kasalukuyang Domain sa isang partikular na subsystem, gawain, o workflow.
+Hindi ito bumubuo ng panibagong Domain at hindi nito binabago ang operational responsibility ng gumagamit. Sa halip, inilalantad nito ang isang tiyak na bahagi ng kakayahan ng kasalukuyang node bilang isang lohikal na kapaligiran ng operasyon.
 
-Ang pagpasok sa isang Context ay hindi nagbabago sa operational responsibility ng gumagamit; binabago lamang nito ang kasalukuyang pokus ng operasyon.
+Sa bawat aktibong Domain, maaaring walang aktibong Context o magkaroon lamang ng iisang aktibong Context sa bawat sandali.
 
-### Relasyon ng Domain at Context
+### Ugnayan ng Session, Domain, Context, at Node
 
-Sa bawat pagkakataon:
+Ang bawat Session ay naglalaman ng iisang aktibong Domain.
 
-* ang isang Session ay nasa iisang aktibong Domain;
-* ang isang Domain ay maaaring walang aktibong Context;
-* kung may aktibong Context, ito ay nabibilang lamang sa kasalukuyang Domain;
-* iisa lamang ang maaaring maging aktibong Context sa bawat sandali.
+Ang bawat aktibong Domain ay maaaring magkaroon ng wala o isang aktibong Context.
 
-Hindi pinahihintulutan ang magkakasabay o magkakapatong na Context.
+Ang Context ay isang **estado ng command navigation** at umiiral lamang sa loob ng kasalukuyang Domain.
+
+Samantala, ang mga resource, setting, configuration, telemetry, at iba pang kakayahan ay pagmamay-ari ng kasalukuyang **Node**. Ang mga ito ay ina-access sa pamamagitan ng Context at nananatiling bahagi ng Node anuman ang kasalukuyang Domain, alinsunod sa mga pahintulot ng gumagamit.
+
+### Operational at Configuration Context
+
+Dalawang uri ng Context ang kinikilala ng SKLB.
+
+#### Operational Context
+
+Ang Operational Context ay ginagamit para sa pagmamasid, operasyon, pagsusuri, at iba pang gawaing hindi nangangailangan ng configuration workspace.
+
+Maaari itong direktang pasukin mula sa kasalukuyang Domain.
+
+#### Configuration Workspace
+
+Ang **`kumpig`** ay isang espesyal na **Configuration Workspace** na ipinapakita bilang isang Context sa Prompt Grammar.
+
+Ito ang parent environment ng lahat ng Configuration Context at nagsisilbing katumbas ng *configuration mode* ng Cisco IOS.
+
+Ang mga Configuration Context ay kinakatawan bilang mga **qualified context** gamit ang tuldok (`.`) bilang hierarchical separator.
+
+Ang mga aktuwal na Context at ang kanilang hierarchy ay inilalarawan sa hiwalay na Specification.
+
+### Node-driven Context Model
+
+Ang SKLB ay hindi nagtatakda ng nakapirming listahan ng mga Context.
+
+Sa halip, ang mga Context ay nakabatay sa:
+
+* kasalukuyang System;
+* kasalukuyang Node;
+* mga kakayahan (*capabilities*) ng Node.
+
+Dahil dito, maaaring magkaiba ang mga available na Context ng bawat node habang nananatiling pareho ang command model ng SKLB.
+
+### Navigation Model
+
+Ang command navigation ay sumusunod sa mga sumusunod na prinsipyo:
+
+* ang Operational Context ay maaaring direktang pasukin mula sa kasalukuyang Domain;
+* ang Configuration Context ay dapat munang dumaan sa `kumpig`;
+* ang paglabas ay isinasagawa gamit ang command na `labas`;
+* ang `labas` ay laging bumabalik sa parent Context o Domain;
+* hindi pinahihintulutan ang direktang paglipat sa sibling Context.
+
+Ang detalyadong navigation behavior ay ilalarawan sa hiwalay na Specification.
 
 ### Prompt State
 
-Ang mga Prompt State (`>` at `#`) ay hiwalay sa Domain at Context.
+Ang Prompt State (`>` at `#`) ay hiwalay sa Domain at Context.
 
-Ang Prompt State ay nagsasaad lamang ng kasalukuyang estado ng session (halimbawa, execution o configuration) at hindi bumubuo ng panibagong Domain o Context.
+Ito ay nagsasaad lamang ng kasalukuyang estado ng command operating environment at hindi bumubuo ng bagong Domain o Context.
+
+## Mga Prinsipyong Pang-arkitektura
+
+* Ang **Domain** ang nagtatakda ng saklaw ng mga operasyong pinahihintulutan sa kasalukuyang Session.
+* Ang **Node** ang nagmamay-ari ng mga resource, setting, configuration, at kakayahang ginagamit ng sistema.
+* Ang **Context** ang naglalantad ng isang tiyak na bahagi ng mga kakayahan ng Node bilang isang lohikal na kapaligiran ng operasyon.
+* Ang **Prompt State** ang nagpapakita kung ang kasalukuyang operasyon ay nasa execution state (`>`) o configuration state (`#`).
 
 ## Mga Dahilan
 
 Napili ang modelong ito dahil:
 
-* malinaw nitong pinaghihiwalay ang *operational responsibility* at *operational focus*;
-* pinapanatili nitong simple ang command navigation;
-* umaayon ito sa prinsipyong ginagamit ng Cisco IOS na iisang context lamang ang aktibo sa bawat pagkakataon;
-* nagbibigay ito ng matatag na pundasyon para sa command parser, session manager, at command language;
-* nagbibigay ito ng sapat na kakayahang mapalawak ang SKLB nang hindi binabago ang pangunahing organisasyon ng command operating environment.
+* malinaw nitong pinaghihiwalay ang operational responsibility, operational focus, at pagmamay-ari ng resource;
+* nagbibigay ito ng pare-parehong command navigation sa buong SKLB;
+* umaayon ito sa mga prinsipyong ginagamit ng Cisco IOS habang nananatiling may sariling identidad ang SKLB;
+* nagbibigay ito ng matatag at napapalawak na pundasyon para sa command language, session manager, at command parser.
 
 ## Mga Bunga
 
 ### Positibo
 
-* Nagiging pare-pareho ang organisasyon ng mga command sa buong SKLB.
-* Nagiging malinaw ang paghihiwalay ng mga responsibilidad at mga workflow.
-* Napapadali ang pagdaragdag ng mga bagong Domain at Context sa hinaharap.
-* Nagiging mas simple ang pagdidisenyo ng command parser at command navigation.
+* Pare-pareho ang lohikal na organisasyon ng command operating environment.
+* Malinaw ang paghihiwalay ng Session, Domain, Context, at Node.
+* Ang bawat node ay maaaring magkaroon ng sariling hanay ng Context nang hindi binabago ang pangunahing arkitektura.
+* Napapasimple ang pagpapanatili at pagpapalawak ng SKLB.
 
 ### Mga Limitasyon
 
-* Hindi pa tinutukoy ng ADR na ito ang kumpletong listahan ng mga Domain at Context.
-* Hindi pa nito tinutukoy ang eksaktong paraan ng pagpasok at paglabas sa bawat Context.
-* Hindi pa nito tinutukoy ang command syntax o ang implementasyon ng command navigation.
-* Ang mga espesipikong Context ay ilalarawan sa hiwalay na teknikal na espesipikasyon o sa mga susunod na ADR kung kinakailangan.
+Hindi tinutukoy ng ADR na ito ang:
 
-## Kaugnay na Desisyon
+* eksaktong listahan ng mga Domain at Context;
+* command syntax;
+* command hierarchy;
+* command parser;
+* command navigation details.
 
-Ang ADR na ito ay nakabatay sa:
+Ang mga ito ay ilalagay sa magkakahiwalay na Specification.
+
+## Kaugnay na mga ADR
+
+Nakabatay ang ADR na ito sa:
 
 * **ADR-0001 — Salig bilang Root Command Environment at Session Manager**
 * **ADR-0002 — Session Identity at Prompt Grammar**
 
-At magsisilbing pundasyon para sa mga susunod na desisyon tungkol sa:
+Magsisilbi naman itong pundasyon ng mga susunod na ADR at Specification na may kaugnayan sa Session Model, Command Language, Navigation, at iba pang bahagi ng SKLB.
 
-* Session and Authentication Model
-* Command Language Philosophy
-* Command Navigation
-* Built-in Commands
-* Domain and Context Specification
+## Katayuan
 
-Ang detalyadong listahan ng mga opisyal na Domain, Context, kanilang mga ugnayan, at command hierarchy ay ilalagay sa hiwalay na **Domain and Context Specification**, habang ang ADR na ito ay mananatiling talaan ng pangunahing desisyong pang-arkitektura hinggil sa lohikal na organisasyon ng command operating environment ng SKLB.
-
----
----
-
-# Open Design Questions
-
-Ang mga sumusunod ay kasalukuyang sinusuri bago tanggapin ang ADR:
-
-- lifecycle ng **Context**;
-- papel ng `kumpig`;
-- mga panuntunan sa pagpasok at paglabas ng **Context**.
+Sa pamamagitan ng dokumentong ito, ang **Domain at Context Model** ang siyang opisyal na lohikal na modelo ng command operating environment ng LNDH-SKLB. Ang lahat ng susunod na desisyong pang-arkitektura at espesipikasyon ay inaasahang magiging kaayon ng modelong itinatag sa ADR na ito.

@@ -29,26 +29,62 @@ Kung walang opisyal na prompt grammar, maaaring magkaroon ng hindi magkakatugman
 Napagpasyahang gamitin ang sumusunod na opisyal na gramatika ng prompt para sa lahat ng session ng SKLB.
 
 ```text
-[identity@]system(node)[:domain[(context)]]prompt
+[identity]@system(node)[:domain[(context[.subcontext...])]]prompt
 ```
 
 Sa modelong ito:
 
-* ang **identity** ay opsyonal at kumakatawan sa kasalukuyang session identity;
+* ang **identity** ay opsiyonal at kumakatawan sa kasalukuyang session identity; kapag walang user account, nananatiling walang laman ang bahaging ito habang ipinapakita pa rin ang `@` delimiter;
 * ang **system** ay tumutukoy sa target na ecosystem;
 * ang **node** ay nagsasaad ng kasalukuyang host o MCU;
 * ang **domain** ay tumutukoy sa kasalukuyang command domain;
-* ang **context** ay nagsasaad ng partikular na context at subcontext ng domain;
+* ang **context** ay nagsasaad ng kasalukuyang context at maaaring sundan ng isa o higit pang subcontext, na pinaghihiwalay ng tuldok (`.`), upang bumuo ng isang qualified context.
+* ang **qualified context** ay tumutukoy sa kabuuang pangalan ng context (`context.subcontext...`) na nagpapakita ng hierarchical na organisasyon ng mga context.
 * ang **prompt symbol** (`>` o `#`) ay nagsasaad ng kasalukuyang command state.
 
-Ang bawat bahagi ng prompt ay may iisang semantikong kahulugan at hindi dapat gamitin para sa ibang layunin.
+Ang bawat bahagi ng prompt ay may iisang sintaktikong anyo at natatanging semantikong kahulugan sa loob ng Session Model ng SKLB, at hindi dapat gamitin para sa ibang layunin.
+
+### Mga Delimiter at Simbolo
+
+Ginagamit ng Prompt Grammar ng SKLB ang mga sumusunod na delimiter at simbolo upang paghiwalayin at ipahiwatig ang bawat bahagi ng prompt.
+
+| Simbolo | Layunin |
+| --- | --- |
+| `@` | Pinaghihiwalay ang **Identity** at **System**. Palagi itong ipinapakita kahit walang aktibong *Identity*. |
+| `(` `)` | Naglilimita (*encloses*) sa **Node** at **Context** upang malinaw na maipakita ang kanilang saklaw. |
+| `:` | Pinaghihiwalay ang **System/Node** at ang kasalukuyang **Domain**. |
+| `.`                 | Opisyal na **hierarchical separator** ng **Context** at **Subcontext**. Ginagamit upang bumuo ng isang **Qualified Context** (hal. `kumpig.radyo`). |
+| `>` | Nagsasaad ng **Execution State**, kung saan maaaring magsagawa ng mga utos ngunit walang aktibong configuration workspace. |
+| `#` | Nagsasaad ng **Configuration State**, kung saan may aktibong configuration workspace at pinahihintulutan ang pagbabago ng mga kumpigurasyon. |
+
+
+### Mga Halimbawa
+
+Ang mga sumusunod na halimbawa ay inilaan upang ipakita ang paggamit ng Prompt Grammar. Ang mga halagang ipinuno sa bawat bahagi ay pansamantalang halimbawa lamang at hindi pa bahagi ng opisyal na espesipikasyon ng SKLB.
+
+```
+@lndh(dron)> _ 
+```
+```
+@lndh(dron):balana> _
+```
+```
+haraya@lndh(dron):malim> _
+```
+```
+haraya@lndh(dron):bahala(kumpig)# _
+```
+```
+haraya@lndh(dron):bahala(kumpig.radyo)# _
+```
 
 ## Mga Dahilan
 
 Napili ang gramatikang ito dahil:
 
 * nagbibigay ito ng iisang kanonikal na representasyon ng session;
-* malinaw ang paghihiwalay ng identity, system, node, domain, at context;
+* nagbibigay ito ng pare-parehong paraan upang katawanin ang hierarchical na organisasyon ng mga context nang hindi binabago ang pangunahing gramatika ng prompt.
+* malinaw ang paghihiwalay ng identity, system, node, domain, context, at subcontext;
 * sumusuporta ito sa parehong Appliance Mode at Multi-user Mode nang hindi binabago ang syntax;
 * umaayon ito sa distributed architecture ng LNDH;
 * nagbibigay ito ng matatag na pundasyon para sa session manager, prompt renderer, command parser, at iba pang bahagi ng SKLB;
@@ -83,3 +119,10 @@ At nagsisilbing pundasyon para sa mga susunod na desisyon tungkol sa:
 * Prompt Grammar Specification
 
 Ang detalyadong espesipikasyon ng prompt grammar, kabilang ang mga delimiter, mga panuntunan sa pagpapakita, at mga halimbawa ng paggamit, ay ilalarawan sa hiwalay na **Prompt Grammar Specification**. Ang ADR na ito ay nagsisilbing opisyal na talaan ng desisyong pang-arkitektura na nagtatatag ng iisang representasyon ng session sa loob ng SKLB.
+
+## Kasaysayan ng Rebisyon
+
+| Rebisyon | Petsa | Pagbabago |
+|----------:|:------|:----------|
+| 0 | 2026-07-19 | Inisyal na bersiyon ng ADR-0002 na nagtatatag ng Session Identity at Prompt Grammar ng SKLB. |
+| 1 | 2026-07-20 | Binago ang Prompt Grammar upang gawing opsiyonal ang `identity` habang nananatiling palagian ang `@` delimiter. Idinagdag ang suporta sa `context.subcontext...`, ang konsepto ng **Qualified Context**, at itinakda ang `.` bilang opisyal na hierarchical separator. Idinagdag ang mga paliwanag ukol sa mga delimiter at simbolo, mga halimbawang prompt, at iniayon ang dokumento sa mga desisyong itinatag sa ADR-0003. |
